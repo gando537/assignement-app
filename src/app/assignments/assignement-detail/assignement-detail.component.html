@@ -1,0 +1,11 @@
+<mat-card *ngIf="assignmentTransmis">
+    <mat-card-content>
+        <mat-card-title>
+            {{assignmentTransmis.nom}}
+        </mat-card-title>
+        <mat-card-subtitle>
+            {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yyyy'}}
+        </mat-card-subtitle>
+        <button mat-flat-button color="accent" (click)="onSubmit()">Supprimer Assignment</button>
+    </mat-card-content>
+</mat-card>
