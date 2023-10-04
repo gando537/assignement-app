@@ -1,3 +1,11 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button class="menu"> <mat-icon>home</mat-icon></button>
+        <button mat-button class="menu" id="_menu">Home</button>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon"><mat-icon>menu</mat-icon></button>
+    </mat-toolbar-row>
+</mat-toolbar>
 <main *ngIf="!formVisible">
     <button mat-flat-button color="accent" (click)="formVisible = true">Ajouter assignment</button>
         <mat-list *ngFor="let assignment of assignments">

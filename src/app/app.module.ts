@@ -19,6 +19,8 @@ import { MatNativeDateModule} from '@angular/material/core';
 import { AssignementDetailComponent } from './assignments/assignement-detail/assignement-detail.component';
 import { NonRenduDirective } from './shared/non-rendu.directive';
 import { AddAssignementComponent } from './assignments/add-assignement/add-assignement.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { AddAssignementComponent } from './assignments/add-assignement/add-assig
     MatFormFieldModule,
     FormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

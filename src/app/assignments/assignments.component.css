@@ -11,3 +11,16 @@
     flex-direction: column;
     margin: 5px;
 }
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.menu {
+    font-size: medium;
+}
+
+#_menu {
+    padding-left: 0px;
+    margin-left: -10px;
+}
