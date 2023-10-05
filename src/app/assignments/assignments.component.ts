@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Assignment } from './assignments.model';
+import { AssignmentsService } from '../shared/assignments.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-assignements',
@@ -14,35 +16,32 @@ export class AssignementsComponent implements OnInit {
   nomDevoir: string = '';
   dateRendu!: Date;
   assignmentSelectionne!: Assignment;
+  assignments: Assignment[] = [];
 
-
-  assignments: Assignment[] = [
-    {
-      nom: 'Devoir Angular de Buffa',
-      dateDeRendu: new Date('2023-09-30'),
-      rendu: false,
-    },
-    {
-      nom: 'Devoir SQL de Mopolo',
-      dateDeRendu: new Date('2023-10-30'),
-      rendu: false,
-    },
-    {
-      nom: 'Devoir gestion de Tunsi',
-      dateDeRendu: new Date('2023-08-30'),
-      rendu: true,
-    },
-  ];
+  constructor(private assignmentsService: AssignmentsService) {
+   }
 
   ngOnInit(): void {
+    // this.assignments = this.assignmentsService.getAssignments();
+    this.getAssignments();
+  }
+  getAssignments() {
+    this.assignmentsService.getAssignments()
+      .subscribe(assignments => {
+        this.assignments = assignments;
+      });
   }
 
   assignmentClique(assignement: Assignment) {
     this.assignmentSelectionne = assignement;
   }
 
-  onNouvelAssignment($event: Assignment) {
-    this.assignments.push($event);
+  onNouvelAssignment(event: Assignment) {
+    // this.assignments.push($event);
+    this.assignmentsService.addAssignment(event)
+      .subscribe(message => {
+        console.log(message);
+      });
     this.formVisible = false;
   }
 

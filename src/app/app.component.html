@@ -1,2 +1,23 @@
-
-<app-assignements></app-assignements>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button class="example-icon" (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
+        <button mat-icon-button class="menu"> <mat-icon>home</mat-icon></button>
+        <button mat-button class="menu" id="_menu">Home</button>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon login" id="_login"><mat-icon>login</mat-icon></button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="side">
+        <mat-list>
+            <mat-list-item><a routerLink="/assignments">Liste des devoirs</a></mat-list-item>
+            <mat-list-item><a routerLink="/assignments">Ajout d'un devoir</a></mat-list-item>
+            <mat-list-item><a routerLink="/assignments">Modification d'un devoir</a></mat-list-item>
+            <mat-list-item><a routerLink="/assignments">Suppression d'un devoir</a></mat-list-item>
+            <mat-list-item><a routerLink="/assignments">Génération de données de test</a></mat-list-item>
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

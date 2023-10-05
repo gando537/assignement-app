@@ -23,4 +23,7 @@ export class AssignementDetailComponent implements OnInit {
     this.supprimeAssignment.emit(this.assignmentTransmis);
   }
 
+  onAssignmentRendu() {
+    this.assignmentTransmis.rendu = true;
+  }
 }
