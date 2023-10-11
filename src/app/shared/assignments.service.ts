@@ -7,23 +7,23 @@ import { Assignment } from '../assignments/assignments.model';
 })
 export class AssignmentsService {
 
+  titre : String = "Mon application Angular sur les assignments"
   assignments: Assignment[] = [
     {
-      nom: 'Devoir Angular de Buffa',
-      dateDeRendu: new Date('2023-09-30'),
-      rendu: false,
+      nom: "Vive les maths",
+      dateDeRendu: new Date('2021-03-01'),
+      rendu: true
     },
     {
-      nom: 'Devoir SQL de Mopolo',
-      dateDeRendu: new Date('2023-10-30'),
-      rendu: false,
+      nom: "Vive la physique",
+      dateDeRendu: new Date('2023-03-05'),
+      rendu: false
     },
     {
-      nom: 'Devoir gestion de Tunsi',
-      dateDeRendu: new Date('2023-08-30'),
-      rendu: true,
-    },
-  ];
+      nom: "Angular c'est encore mieux",
+      dateDeRendu: new Date('2021-03-10'),
+      rendu: false
+    }];
 
   constructor() { }
 
@@ -38,5 +38,14 @@ export class AssignmentsService {
 
   updateAssignment(assignment: Assignment): Observable<String>{
     return of("Assignment service: Assignment modifié");
+  }
+
+  deleteAssignment(assignment: Assignment): Observable<String>{
+
+    let index = this.assignments.indexOf(assignment);
+    if(index > -1){
+      this.assignments.splice(index, 1);
+    }
+    return of("Assignment service: Assignment supprimé");
   }
 }

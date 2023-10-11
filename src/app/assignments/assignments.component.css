@@ -20,3 +20,13 @@
     padding-left: 0px;
     margin-left: -10px;
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.btnAjout {
+    margin: 5px;
+    align-self: flex-end;
+}

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Assignment } from './assignments.model';
 import { AssignmentsService } from '../shared/assignments.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-assignements',
@@ -25,6 +24,7 @@ export class AssignementsComponent implements OnInit {
     // this.assignments = this.assignmentsService.getAssignments();
     this.getAssignments();
   }
+
   getAssignments() {
     this.assignmentsService.getAssignments()
       .subscribe(assignments => {
@@ -46,7 +46,10 @@ export class AssignementsComponent implements OnInit {
   }
 
   onSupprimeAssignement($event: Assignment) {
-    this.assignments = this.assignments.filter(a => a !== $event);
+    this.assignmentsService.deleteAssignment($event)
+      .subscribe(message => {
+        console.log(message);
+      });
     if (this.assignmentSelectionne === $event) {
       this.assignmentSelectionne = null as any;
     }
