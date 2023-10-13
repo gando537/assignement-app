@@ -1,0 +1,17 @@
+$background-color_1: #eee;
+
+mat-sidenav-container {
+	height: calc(205vh - 115vh);
+}
+mat-sidenav {
+	width: 200px;
+	background-color: $background-color_1;
+}
+.example-spacer {
+	flex: 1 1 auto;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+}

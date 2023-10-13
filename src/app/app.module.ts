@@ -23,6 +23,17 @@ import { AddAssignementComponent } from './assignments/add-assignement/add-assig
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ListeDesDevoirsComponent } from './liste-des-devoirs/liste-des-devoirs.component';
+import { AjoutDevoirComponent } from './ajout-devoir/ajout-devoir.component';
+import { ModificationDevoirComponent } from './modification-devoir/modification-devoir.component';
+import { SuppressionDevoirComponent } from './suppression-devoir/suppression-devoir.component';
+import { GenerationDeDonneesDeTestsComponent } from './generation-de-donnees-de-tests/generation-de-donnees-de-tests.component';
+import { BodyComponent } from './body/body.component';
+import { HeaderComponent } from './header/header.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { CdkMenuModule } from '@angular/cdk/menu';
 
 @NgModule({
   declarations: [
@@ -31,7 +42,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     RenduDirective,
     AssignementDetailComponent,
     NonRenduDirective,
-    AddAssignementComponent
+    AddAssignementComponent,
+    SidenavComponent,
+    DashboardComponent,
+    ListeDesDevoirsComponent,
+    AjoutDevoirComponent,
+    ModificationDevoirComponent,
+    SuppressionDevoirComponent,
+    GenerationDeDonneesDeTestsComponent,
+    BodyComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +70,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    OverlayModule,
+    CdkMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

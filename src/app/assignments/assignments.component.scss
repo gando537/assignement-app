@@ -1,0 +1,26 @@
+$color_1: 'green';
+$color_2: 'red';
+
+.rendu {
+	color: $color_1;
+}
+
+.nonRendu {
+	color: $color_2;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+}
+
+.btnAjout {
+	margin: 5px;
+	align-self: flex-end;
+}
+
+.container {
+	.content-list {
+		margin-top: 10px;
+	}
+}

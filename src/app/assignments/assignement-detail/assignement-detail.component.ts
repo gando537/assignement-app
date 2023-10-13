@@ -5,7 +5,7 @@ import { AssignmentsService } from 'src/app/shared/assignments.service';
 @Component({
   selector: 'app-assignement-detail',
   templateUrl: './assignement-detail.component.html',
-  styleUrls: ['./assignement-detail.component.css']
+  styleUrls: ['./assignement-detail.component.scss']
 })
 export class AssignementDetailComponent implements OnInit {
 
