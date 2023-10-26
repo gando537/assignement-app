@@ -1,5 +1,7 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { languages, notifications, userItems } from './header-dummy-data';
+import { AuthService } from 'src/app/shared/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +20,7 @@ export class HeaderComponent implements OnInit {
   notifications = notifications;
   userItems = userItems;
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -47,6 +49,19 @@ export class HeaderComponent implements OnInit {
       this.canShowSearchAsOverlay = true;
     } else {
       this.canShowSearchAsOverlay = false;
+    }
+  }
+
+  loggInOrOut(label:string): void {
+    if(label !== 'Login' && label !== 'Logout')
+      return;
+    if(this.authService.isLoggedIn){
+      this.authService.logOut();
+      userItems[3].label = 'Login';
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.authService.logIn();
+      userItems[3].label = 'Logout';
     }
   }
 

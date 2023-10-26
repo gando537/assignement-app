@@ -13,7 +13,7 @@ export const navbarData = [
         icon: 'fal fa-plus',
         label: "Ajout d'un devoir",
     },{
-        routeLink: "modif-devoir",
+        routeLink: "edit-devoir",
         icon: 'fal fa-edit',
         label: "Modification d'un devoir",
     },{

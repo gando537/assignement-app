@@ -1,11 +1,11 @@
 export const languages = [
     {
-        language: 'English',
-        flag: 'us'
-    },
-    {
         language: 'French',
         flag: 'france'
+    },
+    {
+        language: 'English',
+        flag: 'us'
     },
     {
         language: 'German',
@@ -54,6 +54,6 @@ export const userItems = [
     },
     {
         icon: 'far fa-power-off',
-        label: 'Logout'
+        label: 'Login'
     },
 ];

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from './shared/auth.service';
+import { Router } from '@angular/router';
 
 interface SideNavToggle {
   collapsed: boolean;
@@ -16,6 +18,8 @@ export class AppComponent {
   opened: boolean = false;
   isSideNavCollapsed = false;
   screenWidth: number = 0;
+
+  constructor() { }
 
   onToggleSideNav(data: SideNavToggle): void {
     this.isSideNavCollapsed = data.collapsed;

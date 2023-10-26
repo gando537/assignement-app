@@ -23,17 +23,20 @@ import { AddAssignementComponent } from './assignments/add-assignement/add-assig
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ListeDesDevoirsComponent } from './liste-des-devoirs/liste-des-devoirs.component';
-import { AjoutDevoirComponent } from './ajout-devoir/ajout-devoir.component';
-import { ModificationDevoirComponent } from './modification-devoir/modification-devoir.component';
-import { SuppressionDevoirComponent } from './suppression-devoir/suppression-devoir.component';
-import { GenerationDeDonneesDeTestsComponent } from './generation-de-donnees-de-tests/generation-de-donnees-de-tests.component';
-import { BodyComponent } from './body/body.component';
-import { HeaderComponent } from './header/header.component';
+import { SidenavComponent } from './assignments/sidenav/sidenav.component';
+import { DashboardComponent } from './assignments/dashboard/dashboard.component';
+import { ListeDesDevoirsComponent } from './assignments/liste-des-devoirs/liste-des-devoirs.component';
+import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
+import { SuppressionDevoirComponent } from './assignments/suppression-devoir/suppression-devoir.component';
+import { GenerationDeDonneesDeTestsComponent } from './assignments/generation-de-donnees-de-tests/generation-de-donnees-de-tests.component';
+import { BodyComponent } from './assignments/body/body.component';
+import { HeaderComponent } from './assignments/header/header.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkMenuModule } from '@angular/cdk/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { DialogViewComponent } from './assignments/dialog-view/dialog-view.component';
+import { DialogOverviewDialog } from './assignments/dialog-view/dialog-view.component';
 
 @NgModule({
   declarations: [
@@ -46,12 +49,13 @@ import { CdkMenuModule } from '@angular/cdk/menu';
     SidenavComponent,
     DashboardComponent,
     ListeDesDevoirsComponent,
-    AjoutDevoirComponent,
-    ModificationDevoirComponent,
+    EditAssignmentComponent,
     SuppressionDevoirComponent,
     GenerationDeDonneesDeTestsComponent,
     BodyComponent,
-    HeaderComponent
+    HeaderComponent,
+    DialogViewComponent,
+    DialogOverviewDialog
   ],
   imports: [
     BrowserModule,
@@ -72,9 +76,19 @@ import { CdkMenuModule } from '@angular/cdk/menu';
     MatSidenavModule,
     MatCheckboxModule,
     OverlayModule,
-    CdkMenuModule
+    CdkMenuModule,
+    MatSlideToggleModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [{
+    provide: MatDialogRef,
+    useValue: {}
+  },
+  {
+    provide: MAT_DIALOG_DATA,
+    useValue: {}
+  },
+  DialogOverviewDialog, DialogViewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

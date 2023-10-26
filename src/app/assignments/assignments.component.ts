@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Assignment } from './assignments.model';
 import { AssignmentsService } from '../shared/assignments.service';
 
@@ -36,22 +36,22 @@ export class AssignementsComponent implements OnInit {
     this.assignmentSelectionne = assignement;
   }
 
-  onNouvelAssignment(event: Assignment) {
-    // this.assignments.push($event);
-    this.assignmentsService.addAssignment(event)
-      .subscribe(message => {
-        console.log(message);
-      });
-    this.formVisible = false;
-  }
+  // onNouvelAssignment(event: Assignment) {
+  //   // this.assignments.push($event);
+  //   this.assignmentsService.addAssignment(event)
+  //     .subscribe(message => {
+  //       console.log(message);
+  //     });
+  //   this.formVisible = false;
+  // }
 
-  onSupprimeAssignement($event: Assignment) {
-    this.assignmentsService.deleteAssignment($event)
-      .subscribe(message => {
-        console.log(message);
-      });
-    if (this.assignmentSelectionne === $event) {
-      this.assignmentSelectionne = null as any;
-    }
-  }
+  // onSupprimeAssignement($event: Assignment) {
+  //   this.assignmentsService.deleteAssignment($event)
+  //     .subscribe(message => {
+  //       console.log(message);
+  //     });
+  //   if (this.assignmentSelectionne === $event) {
+  //     this.assignmentSelectionne = null as any;
+  //   }
+  // }
 }
