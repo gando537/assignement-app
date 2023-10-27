@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { listUser } from './user-data';
-import { DialogViewComponent } from '../assignments/dialog-view/dialog-view.component';
+import { userItems } from '../assignments/header/header-dummy-data';
 
 @Injectable({
   providedIn: 'root'
@@ -8,23 +8,35 @@ import { DialogViewComponent } from '../assignments/dialog-view/dialog-view.comp
 export class AuthService {
 
   isLoggedIn = false;
+  isadmin = false;
+  username = '';
   listUser = listUser;
+  userItems = userItems;
+  usernameBrider = '';
 
-  constructor(private dialogView: DialogViewComponent) { }
+  constructor() { }
 
-  logIn() {
-    // this.isLoggedIn = true;
-    this.dialogView.openDialog();
+  logIn(username: string) {
+    this.isLoggedIn = true;
+    userItems[3].label = 'Logout';
+    this.username = username;
+    this.usernameBrider = username.length > 3 ? username.substring(0, 3) + '...' : username;
+    this.isadmin = this.listUser.find(user => user.login === username)!.role === 'admin';
   }
 
   logOut() {
     this.isLoggedIn = false;
+    userItems[3].label = 'Login';
+    this.username = '';
+    this.usernameBrider = '';
+    this.isadmin = false;
   }
 
   isAdmin() {
+
     const isUserAdmin = new Promise(
       (resolve, reject) => {
-          resolve(this.isLoggedIn);
+          resolve(this.isadmin);
       });
     return isUserAdmin;
   }
@@ -37,11 +49,7 @@ export class AuthService {
     return isUserLogged;
   }
 
-  getUser() {
-    const getUser = new Promise(
-      (resolve, reject) => {
-          resolve(this.listUser);
-      });
-    return getUser;
+  getUsers() {
+    return this.listUser;
   }
 }

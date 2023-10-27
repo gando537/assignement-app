@@ -319,3 +319,11 @@
     background-size: 100%;
     transition: background 0s;
 }
+
+.username {
+    background: #fff;
+    box-shadow: 0 1rem 3rem rgb(0 0 0 / 13%);
+    border-radius: 0.25rem;
+    padding-left: 0.35rem;
+    z-index: 1;
+}

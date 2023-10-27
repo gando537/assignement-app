@@ -2,6 +2,7 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { languages, notifications, userItems } from './header-dummy-data';
 import { AuthService } from 'src/app/shared/auth.service';
 import { Router } from '@angular/router';
+import { DialogViewComponent } from '../dialog-view/dialog-view.component';
 
 @Component({
   selector: 'app-header',
@@ -19,8 +20,11 @@ export class HeaderComponent implements OnInit {
   languages = languages;
   notifications = notifications;
   userItems = userItems;
+  username = '';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService,
+              private router: Router,
+              private dialogView: DialogViewComponent) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -57,11 +61,9 @@ export class HeaderComponent implements OnInit {
       return;
     if(this.authService.isLoggedIn){
       this.authService.logOut();
-      userItems[3].label = 'Login';
       this.router.navigate(['/dashboard']);
     } else {
-      this.authService.logIn();
-      userItems[3].label = 'Logout';
+      this.dialogView.openDialog();
     }
   }
 

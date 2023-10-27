@@ -15,7 +15,9 @@
                             (click)="onClickEdit()"
                             [disabled]="!isAdmin()">Edit</button>
                 </nav>
-                <button mat-flat-button color="warn" (click)="onSubmit()">DELETE ME</button>
+                <button mat-flat-button color="warn"
+                        (click)="onSubmit()"
+                        [disabled]="!isAdmin()">DELETE ME</button>
             </mat-card-actions>
         </mat-card-content>
     </mat-card>

@@ -40,6 +40,9 @@
                 <div class="head-user-avatar" [cdkMenuTriggerFor]="userOverlay">
                     <img src="../../assets/user.jpg" alt="user" class="user-avatar">
                     <div class="circle-indicator pulse"></div>
+                    <div class="username">
+                        {{authService.usernameBrider}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,8 +99,8 @@
 <ng-template #userOverlay>
     <div class="overlay overlay-user overlay-fall" cdkMenu>
         <ul>
-            <li *ngFor="let item of userItems" cdkMenuItem>
-                <a (click)="loggInOrOut(item.label)">
+            <li *ngFor="let item of userItems" (click)="loggInOrOut(item.label)" cdkMenuItem>
+                <a>
                     <i class="icon" [ngClass]="item.icon"></i>
                     <span>{{item.label}}</span>
                 </a>

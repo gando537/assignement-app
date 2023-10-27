@@ -64,6 +64,6 @@ export class AssignementDetailComponent implements OnInit {
   }
 
   isAdmin() {
-    return this.authService.isLoggedIn;
+    return this.authService.isadmin;
   }
 }

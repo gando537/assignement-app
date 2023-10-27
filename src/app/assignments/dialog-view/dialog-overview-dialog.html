@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Login {{data.login}}</h1>
+<h1 mat-dialog-title>Login</h1>
 <div mat-dialog-content>
     <p>Username</p>
     <mat-form-field>
@@ -13,5 +13,5 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="data.login" cdkFocusInitial>Connect</button>
+    <button mat-button [mat-dialog-close]="data.login" cdkFocusInitial (click)="onYesClick()">Connect</button>
 </div>

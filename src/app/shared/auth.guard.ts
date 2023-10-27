@@ -10,7 +10,9 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   // Si ça renvoie true alors on peut activer la route
   return authService.isAdmin().then(
     (auth) => {
-      if (auth) {
+      const userLogin = authService.username;
+      const listUser = authService.listUser;
+      if (auth && userLogin !== '' && userLogin !== undefined && userLogin !== null && listUser.find(user => user.login === userLogin)!.role === 'admin' ) {
         console.log('authGuard: accès autorisé');
         return true;
       } else {

@@ -1,5 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { AuthService } from 'src/app/shared/auth.service';
 
 export interface DialogData {
   login: string;
@@ -40,10 +41,20 @@ export class DialogOverviewDialog {
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public users: AuthService) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onYesClick(): void {
+    if(this.users.listUser.find(user => user.login === this.data.login && user.password === this.data.password)) {
+      this.users.logIn(this.data.login);
+      this.dialogRef.close();
+    } else {
+      alert('Nom d\'utilisateur ou mot de passe incorrect');
+    }
   }
 
 }
