@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Assignment } from './assignments.model';
 import { AssignmentsService } from '../shared/assignments.service';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-assignements',
@@ -11,13 +12,14 @@ export class AssignementsComponent implements OnInit {
 
   formVisible: boolean = false;
 
-  titre = 'Mon premier assignement'
-  nomDevoir: string = '';
-  dateRendu!: Date;
+  // titre = 'Mon premier assignement'
+  // nomDevoir: string = '';
+  // dateRendu!: Date;
   assignmentSelectionne!: Assignment;
   assignments: Assignment[] = [];
 
-  constructor(private assignmentsService: AssignmentsService) {
+  constructor(private assignmentsService: AssignmentsService,
+              private authService: AuthService) {
    }
 
   ngOnInit(): void {
@@ -33,7 +35,9 @@ export class AssignementsComponent implements OnInit {
   }
 
   assignmentClique(assignement: Assignment) {
-    this.assignmentSelectionne = assignement;
+    if (this.authService.isLoggedIn) {
+      this.assignmentSelectionne = assignement;
+    }
   }
 
   // onNouvelAssignment(event: Assignment) {

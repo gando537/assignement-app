@@ -7,11 +7,11 @@ import { GenerationDeDonneesDeTestsComponent } from './assignments/generation-de
 import { ListeDesDevoirsComponent } from './assignments/liste-des-devoirs/liste-des-devoirs.component';
 import { AddAssignementComponent } from './assignments/add-assignement/add-assignement.component';
 import { AssignementDetailComponent } from './assignments/assignement-detail/assignement-detail.component';
-import { AuthGuard } from './shared/auth.guard';
+import { AuthGuard, AuthGuardUser } from './shared/auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'assignment/:id', component: AssignementDetailComponent},
+  {path: 'assignment/:id', component: AssignementDetailComponent, canActivate: [AuthGuardUser]},
   {path: 'dashboard', component: AssignementsComponent},
   {path: 'liste-devoirs', component: ListeDesDevoirsComponent},
   {path: 'ajout-devoir', component: AddAssignementComponent},

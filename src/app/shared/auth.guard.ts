@@ -23,3 +23,23 @@ export const AuthGuard: CanActivateFn = (route, state) => {
     }
   );
 };
+
+export const AuthGuardUser: CanActivateFn = (route, state) => {
+
+  let authService = inject(AuthService);
+  let router = inject(Router);
+
+  // Si ça renvoie true alors on peut activer la route
+  return authService.isLogged().then(
+    (auth) => {
+      if (auth && authService.username !== '') {
+        console.log('authGuardUser: accès autorisé');
+        return true;
+      } else {
+        console.log('authGuardUser: accès refusé');
+        router.navigate(['/dashboard']);
+        return false;
+      }
+    }
+  );
+}
