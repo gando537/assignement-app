@@ -15,7 +15,7 @@ export const listUser = [
         role: 'user'
     },
     {
-        login: 'mMdiang',
+        login: 'Mdiang',
         password: 'bora',
         role: 'user'
     },

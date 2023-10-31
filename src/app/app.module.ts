@@ -37,6 +37,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { DialogViewComponent } from './assignments/dialog-view/dialog-view.component';
 import { DialogOverviewDialog } from './assignments/dialog-view/dialog-view.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -78,7 +81,9 @@ import { DialogOverviewDialog } from './assignments/dialog-view/dialog-view.comp
     OverlayModule,
     CdkMenuModule,
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule,
+    MatPaginatorModule
   ],
   providers: [{
     provide: MatDialogRef,

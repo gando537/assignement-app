@@ -40,8 +40,12 @@ export class EditAssignmentComponent implements OnInit {
     if (!this.assignment) {
       return;
     }
-    this.assignment.nom = this.nomAssignment;
-    this.assignment.dateDeRendu = this.dateDeRendu;
+    if (this.nomAssignment) {
+      this.assignment.nom = this.nomAssignment;
+    }
+    if (this.dateDeRendu) {
+      this.assignment.dateDeRendu = this.dateDeRendu;
+    }
     this.assignmentService.updateAssignment(this.assignment).subscribe((message) => {
       console.log(message);
       this.router.navigate(['/dashboard']);

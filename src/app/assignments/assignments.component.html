@@ -1,28 +1,32 @@
-<!-- <main *ngIf="!formVisible" class="container"> -->
 <main class="container">
-    <!-- <button mat-flat-button color="accent" (click)="formVisible = true" class="btnAjout">Ajouter assignment</button> -->
+    <!-- <div>
+        <button mat-flat-button color="primary" (click)="peuplerBD()" type="submit">PeuplerBD</button>
+    </div> -->
     <div class="ajouterBtn">
         <a routerLink="/ajout-devoir">
             <button mat-flat-button color="accent">Ajouter Assignment</button>
         </a>
     </div>
     <mat-card class="content-list" *ngFor="let assignment of assignments">
-        <nav><p routerLink="/assignment/{{assignment.id}}">
-            <mat-card-content class="content">
-                <mat-card-title>
-                    {{assignment.nom}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                    {{assignment.dateDeRendu | date: 'dd/MM/yyyy'}}
-                </mat-card-subtitle>
-                <p appRendu *ngIf="assignment.rendu; else nonsoumis">Rendu</p>
-                <ng-template #nonsoumis>
-                    <p appNonRendu mat-line>Non rendu</p>
-                </ng-template>
-            </mat-card-content>
-        </p></nav>
+        <nav>
+            <p routerLink="/assignment/{{assignment.id}}">
+                <mat-card-content class="content">
+                    <mat-card-title>
+                        {{assignment.nom}}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{assignment.dateDeRendu | date: 'dd/MM/yyyy'}}
+                    </mat-card-subtitle>
+                    <p appRendu *ngIf="assignment.rendu; else nonsoumis">Rendu</p>
+                    <ng-template #nonsoumis>
+                        <p appNonRendu mat-line>Non rendu</p>
+                    </ng-template>
+                </mat-card-content>
+            </p>
+        </nav>
     </mat-card>
-    <!-- <app-assignement-detail (supprimeAssignment)="onSupprimeAssignement($event)"
-        [assignmentTransmis]="assignmentSelectionne"></app-assignement-detail> -->
+    <mat-paginator (page)="handlePageEvent($event)" [length]="totalDocs"
+        [pageSize]="limit" [showFirstLastButtons]="showFirstLastButtons">
+    </mat-paginator>
+
 </main>
-<!-- <app-add-assignement *ngIf="formVisible" (nouvelAssignment)="onNouvelAssignment($event)"></app-add-assignement> -->

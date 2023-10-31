@@ -11,30 +11,26 @@ import { AuthService } from 'src/app/shared/auth.service';
 })
 export class AssignementDetailComponent implements OnInit {
 
-  // @Input()
   assignmentTransmis: Assignment | undefined;
 
-  // @Output()
-  // supprimeAssignment = new EventEmitter<Assignment>();
-
   constructor(private assignmentsService: AssignmentsService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private authService: AuthService) { }
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getAssignment();
   }
 
-  onSubmit() {
+  onDelete() {
     // this.supprimeAssignment.emit(this.assignmentTransmis);
     if (this.assignmentTransmis) {
       this.assignmentsService.deleteAssignment(this.assignmentTransmis)
         .subscribe(message => {
           console.log(message);
+          this.router.navigate(['/dashboard']);
         });
     }
-    this.router.navigate(['/dashboard']);
   }
 
   onAssignmentRendu() {
@@ -43,9 +39,9 @@ export class AssignementDetailComponent implements OnInit {
       this.assignmentsService.updateAssignment(this.assignmentTransmis)
         .subscribe(message => {
           console.log(message);
+          this.router.navigate(['/dashboard']);
         });
     }
-    this.router.navigate(['/dashboard']);
   }
 
   getAssignment() {

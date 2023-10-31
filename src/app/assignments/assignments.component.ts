@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Assignment } from './assignments.model';
 import { AssignmentsService } from '../shared/assignments.service';
 import { AuthService } from '../shared/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { PageEvent } from '@angular/material/paginator';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-assignements',
@@ -10,21 +13,42 @@ import { AuthService } from '../shared/auth.service';
 })
 export class AssignementsComponent implements OnInit {
 
-  formVisible: boolean = false;
+  page: number = 1;
+  limit: number = 10;
+  totalDocs: number = 0;
+  totalPages: number = 0;
+  hasPrevPage: boolean = false;
+  hasNextPage: boolean = false;
+  prevPage: number = 0;
+  nextPage: number = 0;
 
-  // titre = 'Mon premier assignement'
-  // nomDevoir: string = '';
-  // dateRendu!: Date;
-  assignmentSelectionne!: Assignment;
   assignments: Assignment[] = [];
+  showFirstLastButtons: BooleanInput = true;
 
-  constructor(private assignmentsService: AssignmentsService,
-              private authService: AuthService) {
-   }
+  constructor(public assignmentsService: AssignmentsService) {
+  }
 
   ngOnInit(): void {
-    // this.assignments = this.assignmentsService.getAssignments();
-    this.getAssignments();
+    this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
+      .subscribe(data => {
+        this.assignments = data.docs;
+        this.page = data.page;
+        this.limit = data.limit;
+        this.totalDocs = data.totalDocs;
+        this.totalPages = data.totalPages;
+        this.hasPrevPage = data.hasPrevPage;
+        this.hasNextPage = data.hasNextPage;
+        this.prevPage = data.prevPage;
+        this.nextPage = data.nextPage;
+        console.log("Assignments récupérés avec succès !");
+      });
+  }
+
+  peuplerBD() {
+    this.assignmentsService.peuplerBDAvecForkJoin().subscribe(() => {
+      console.log("La BD a été peuplée, tous les appels à forkJoin sont terminés");
+      window.location.reload();
+    });
   }
 
   getAssignments() {
@@ -34,28 +58,21 @@ export class AssignementsComponent implements OnInit {
       });
   }
 
-  assignmentClique(assignement: Assignment) {
-    if (this.authService.isLoggedIn) {
-      this.assignmentSelectionne = assignement;
-    }
+  handlePageEvent($event: PageEvent) {
+    this.page = $event.pageIndex + 1;
+    this.limit = $event.pageSize;
+    this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
+      .subscribe(data => {
+        this.assignments = data.docs;
+        this.page = data.page;
+        this.limit = data.limit;
+        this.totalDocs = data.totalDocs;
+        this.totalPages = data.totalPages;
+        this.hasPrevPage = data.hasPrevPage;
+        this.hasNextPage = data.hasNextPage;
+        this.prevPage = data.prevPage;
+        this.nextPage = data.nextPage;
+        console.log("Assignments récupérés avec succès !");
+      });
   }
-
-  // onNouvelAssignment(event: Assignment) {
-  //   // this.assignments.push($event);
-  //   this.assignmentsService.addAssignment(event)
-  //     .subscribe(message => {
-  //       console.log(message);
-  //     });
-  //   this.formVisible = false;
-  // }
-
-  // onSupprimeAssignement($event: Assignment) {
-  //   this.assignmentsService.deleteAssignment($event)
-  //     .subscribe(message => {
-  //       console.log(message);
-  //     });
-  //   if (this.assignmentSelectionne === $event) {
-  //     this.assignmentSelectionne = null as any;
-  //   }
-  // }
 }

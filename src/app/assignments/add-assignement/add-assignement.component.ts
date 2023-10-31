@@ -22,12 +22,11 @@ export class AddAssignementComponent {
   onSubmit() {
 
     const newAssignment = new Assignment();
-    newAssignment.id = this.assignmentsService.idCurrent;
+    newAssignment.id = Math.floor(Math.random() * 1000);
     newAssignment.nom = this.nomDevoir;
     newAssignment.dateDeRendu = this.dateRendu;
     newAssignment.rendu = false;
 
-    // this.nouvelAssignment.emit(newAssignment);
     this.assignmentsService.addAssignment(newAssignment)
       .subscribe(message => {
         console.log(message);
