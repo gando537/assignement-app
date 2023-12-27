@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Assignment } from '../assignments.model';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
+import { Assignment } from '../models/assignments.model';
+import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-assignement-detail',
@@ -61,5 +61,9 @@ export class AssignementDetailComponent implements OnInit {
 
   isAdmin() {
     return this.authService.isadmin;
+  }
+
+  isLogged() {
+    return this.authService.isLoggedIn;
   }
 }

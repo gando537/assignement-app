@@ -1,8 +1,9 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { languages, notifications, userItems } from './header-dummy-data';
-import { AuthService } from 'src/app/shared/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { DialogViewComponent } from '../dialog-view/dialog-view.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-header',
@@ -21,10 +22,13 @@ export class HeaderComponent implements OnInit {
   notifications = notifications;
   userItems = userItems;
   username = '';
+  searchKey: any;
+  searchText = '';
 
   constructor(public authService: AuthService,
               private router: Router,
-              private dialogView: DialogViewComponent) { }
+              private dialogView: DialogViewComponent,
+              private domSanitizer: DomSanitizer) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -63,8 +67,12 @@ export class HeaderComponent implements OnInit {
       this.authService.logOut();
       this.router.navigate(['/dashboard']);
     } else {
-      this.dialogView.openDialog();
+      this.dialogView.openDialog(false);
     }
   }
 
+  search(searchTxt: any) {
+    // this.searchKey = searchTxt.value;
+    this.searchKey = this.domSanitizer.bypassSecurityTrustHtml(searchTxt.value);
+  }
 }

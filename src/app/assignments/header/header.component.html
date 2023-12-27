@@ -78,10 +78,7 @@
                     <a>View All</a>
                 </span>
             </li>
-            <li class="notification-message-container"
-                *ngFor="let notification of notifications"
-                cdkMenuItem
-            >
+            <li class="notification-message-container" *ngFor="let notification of notifications" cdkMenuItem>
                 <i [class]="notification.icon"></i>
                 <div>
                     <div class="notification-subject">

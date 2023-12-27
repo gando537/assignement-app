@@ -1,14 +1,33 @@
-<ol>
-    <li>
-      <mat-form-field>
-        <mat-label>What's your name?</mat-label>
-        <input matInput [(ngModel)]="password">
-      </mat-form-field>
-    </li>
-    <li>
-      <button mat-raised-button (click)="openDialog()">Pick one</button>
-    </li>
-    <li *ngIf="login">
-      You chose: <em>{{login}}</em>
-    </li>
-  </ol>
+<div class="logIn-signIn">
+    <h3 class="login" mat-dialog-title>Sign In</h3>
+    <button class="signin" mat-button color="accent" (click)="openDialog(true)">
+        Log In
+        <mat-icon>login</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content>
+    <p>Username</p>
+    <mat-form-field class="username">
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="data.name">
+    </mat-form-field>
+    <p>Email</p>
+    <mat-form-field class="email">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="data.email">
+    </mat-form-field>
+    <p>Password</p>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput
+                [(ngModel)]="data.password"
+                type="{{ showPassword ? 'text' : 'password' }}">
+        <button mat-icon-button matSuffix (click)="showPassword = !showPassword" [attr.aria-label]="'Hide password'">
+            <mat-icon>{{ !showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions class="logIn-signIn">
+    <button mat-raised-button class="cancel" color="warn" (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button class="connect" color="primary" cdkFocusInitial (click)="onSignInClick()">Sign In</button>
+</div>

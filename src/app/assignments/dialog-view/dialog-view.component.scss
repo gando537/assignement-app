@@ -1,0 +1,29 @@
+.logIn-signIn{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .login{
+        margin-right: 10px;
+        font-size: medium;
+        color: #3f51b5;
+    }
+    .signin{
+        margin: 15px 10px 0px 10px;
+    }
+
+    .connect, .cancel{
+        margin-bottom: 15px;
+    }
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+.email, .username{
+    width: 247px;
+}

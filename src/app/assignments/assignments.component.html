@@ -1,32 +1,56 @@
+
+<!-- <div class="ajouterBtn">
+    <button mat-flat-button color="accent" routerLink="/ajout-image">Ajouter Image</button>
+</div> -->
+
+<!-- <div class="ajouterBtn">
+    <button mat-flat-button color="accent" [disabled]="!islogged()" routerLink="/ajout-devoir">Ajouter
+        Assignment</button>
+</div> -->
 <main class="container">
     <!-- <div>
         <button mat-flat-button color="primary" (click)="peuplerBD()" type="submit">PeuplerBD</button>
     </div> -->
-    <div class="ajouterBtn">
-        <a routerLink="/ajout-devoir">
-            <button mat-flat-button color="accent">Ajouter Assignment</button>
-        </a>
+    <!-- <div>
+        <button mat-flat-button color="primary" (click)="peuplerEleves()" type="submit">PeuplerCollectionEleve</button>
+    </div> -->
+    <!-- <div>
+        <button mat-flat-button color="primary" (click)="peuplerMatieres()" type="submit">PeuplerMatiere</button>
+    </div> -->
+    <div @cardAnimation>
+        <mat-card class="content-list custom-card" #cards *ngFor="let assignment of assignments">
+            <nav>
+                <p routerLink="/assignment/{{assignment.id}}">
+                    <mat-card-header>
+                        <mat-card-title>
+                            {{assignment.nom}}
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            {{assignment.dateDeRendu | date: 'dd/MM/yyyy'}}
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content class="content">
+                        <div class="outlook" *ngIf="assignment.matiere.image_matiere" >
+                            <img src="../{{assignment.matiere.image_matiere}}"/>
+                        </div>
+                        <div class="flex-row">
+                            <div class="temp">
+                                <span>Matière : {{assignment.matiere.nom_matiere}}</span>
+                            </div>
+                            <div class="temp">
+                                <span>Etudiant : {{assignment.auteur.toUpperCase()}}</span>
+                            </div>
+                        </div>
+                        <p appRendu *ngIf="assignment.rendu; else nonsoumis">Rendu</p>
+                        <ng-template #nonsoumis>
+                            <p appNonRendu mat-line>Non rendu</p>
+                        </ng-template>
+                    </mat-card-content>
+                </p>
+            </nav>
+        </mat-card>
     </div>
-    <mat-card class="content-list" *ngFor="let assignment of assignments">
-        <nav>
-            <p routerLink="/assignment/{{assignment.id}}">
-                <mat-card-content class="content">
-                    <mat-card-title>
-                        {{assignment.nom}}
-                    </mat-card-title>
-                    <mat-card-subtitle>
-                        {{assignment.dateDeRendu | date: 'dd/MM/yyyy'}}
-                    </mat-card-subtitle>
-                    <p appRendu *ngIf="assignment.rendu; else nonsoumis">Rendu</p>
-                    <ng-template #nonsoumis>
-                        <p appNonRendu mat-line>Non rendu</p>
-                    </ng-template>
-                </mat-card-content>
-            </p>
-        </nav>
-    </mat-card>
-    <mat-paginator (page)="handlePageEvent($event)" [length]="totalDocs"
-        [pageSize]="limit" [showFirstLastButtons]="showFirstLastButtons">
-    </mat-paginator>
-
 </main>
+<mat-paginator @cardAnimation (page)="handlePageEvent($event)" [length]="totalDocs" [pageSize]="limit"
+    [showFirstLastButtons]="showFirstLastButtons">
+</mat-paginator>

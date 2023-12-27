@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Assignment } from '../assignments.model';
-import { AssignmentsService } from '../../shared/assignments.service';
+import { Assignment } from '../models/assignments.model';
+import { AssignmentsService } from '../../shared/services/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditAssignmentComponent implements OnInit {
 
   assignment!: Assignment | undefined;
-  nomAssignment!: string;
+  nouveauNomAssignment!: string;
+  ancienNomAssignment!: string;
   dateDeRendu!: Date;
 
   constructor(
@@ -26,26 +27,32 @@ export class EditAssignmentComponent implements OnInit {
 
   getAssignment() {
     const id = +this.route.snapshot.params['id'];
+    if (!id) {
+      return;
+    }
     this.assignmentService.getAssignment(id).subscribe((assignment) => {
       if (!assignment) {
         return;
       }
       this.assignment = assignment;
-      this.nomAssignment = assignment.nom;
+      this.nouveauNomAssignment = assignment.nom;
+      this.ancienNomAssignment = assignment.nom;
       this.dateDeRendu = assignment.dateDeRendu;
     });
   }
 
   onSaveAssignment() {
-    if (!this.assignment) {
+    if (!this.ancienNomAssignment) {
       return;
     }
-    if (this.nomAssignment) {
-      this.assignment.nom = this.nomAssignment;
-    }
+    this.assignment = this.assignment ? this.assignment : new Assignment();
+    this.assignment.nom = this.nouveauNomAssignment ? this.nouveauNomAssignment : this.ancienNomAssignment;
+
     if (this.dateDeRendu) {
       this.assignment.dateDeRendu = this.dateDeRendu;
     }
+    this.assignment._id = this.assignment._id ? this.assignment._id : this.ancienNomAssignment;
+
     this.assignmentService.updateAssignment(this.assignment).subscribe((message) => {
       console.log(message);
       this.router.navigate(['/dashboard']);

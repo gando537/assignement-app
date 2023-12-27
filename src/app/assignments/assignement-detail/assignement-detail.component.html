@@ -10,14 +10,16 @@
             <mat-card-actions id="bottom">
                 <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Devoir
                     rendu</mat-checkbox>
+                <p *ngIf="assignmentTransmis.rendu">Note : {{assignmentTransmis.note}} / 20</p>
+                <div>
+                    <span>{{assignmentTransmis.auteur}}</span>
+                    <span>{{assignmentTransmis.matiere.nom_matiere}}</span>
+                </div>
                 <nav>
-                    <button mat-flat-button color="primary"
-                            (click)="onClickEdit()"
-                            [disabled]="!isAdmin()">Edit</button>
+                    <button mat-flat-button color="primary" (click)="onClickEdit()"
+                        [disabled]="!isLogged()">Edit</button>
                 </nav>
-                <button mat-flat-button color="warn"
-                        (click)="onDelete()"
-                        [disabled]="!isAdmin()">DELETE ME</button>
+                <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="!isAdmin()">DELETE ME</button>
             </mat-card-actions>
         </mat-card-content>
     </mat-card>

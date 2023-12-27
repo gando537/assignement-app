@@ -1,0 +1,10 @@
+<!-- image-upload.component.html -->
+<div>
+    <label>Description : </label>
+    <input type="text" [(ngModel)]="description" />
+</div>
+<div>
+    <label>Image : </label>
+    <input type="file" accept="image/*" (change)="handleImageChange($event)" />
+</div>
+<button (click)="handleSubmit()"> Télécharger</button>

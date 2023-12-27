@@ -1,0 +1,38 @@
+<div class="widget-container">
+    <div class="widget green">
+      <div class="icon">
+        <fa-icon [icon]="faBookOpen"></fa-icon>
+      </div>
+      <div class="value">
+        <div class="top">{{nbAssignments}}</div>
+        <div class="bottom">Devoirs</div>
+      </div>
+    </div>
+    <div class="widget yellow">
+      <div class="icon">
+        <fa-icon [icon]="faBookOpenReader"></fa-icon>
+      </div>
+      <div class="value">
+        <div class="top">{{nbMatieres}}</div>
+        <div class="bottom">Matières</div>
+      </div>
+    </div>
+    <div class="widget red">
+      <div class="icon">
+        <fa-icon [icon]="faUserGraduate"></fa-icon>
+      </div>
+      <div class="value">
+        <div class="top">{{nbEleves}}</div>
+        <div class="bottom">Etudiants</div>
+      </div>
+    </div>
+    <div class="widget blue">
+      <div class="icon">
+        <fa-icon [icon]="faUserTie"></fa-icon>
+      </div>
+      <div class="value">
+        <div class="top">{{nbUsers}}</div>
+        <div class="bottom">Utilisateurs</div>
+      </div>
+    </div>
+  </div>

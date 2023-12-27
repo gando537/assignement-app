@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from './shared/auth.service';
-import { Router } from '@angular/router';
 
 interface SideNavToggle {
   collapsed: boolean;

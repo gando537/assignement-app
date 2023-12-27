@@ -1,14 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, forkJoin, of, tap } from 'rxjs';
-import { Assignment } from '../assignments/assignments.model';
+import { Assignment } from '../../assignments/models/assignments.model';
 import { LoggingService } from './logging.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { bdInitialAssignments } from './data';
+import { bdInitialAssignments } from '../datas/data-initial-assignments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssignmentsService {
+  getAssignmentsByMonth(assignments: Assignment[] | undefined): any[] {
+    let nbAssignmentsByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    assignments?.forEach(a => {
+      let data = new Date(a.dateDeRendu);
+      let month = data.getMonth();
+      nbAssignmentsByMonth[month]++;
+    });
+    return nbAssignmentsByMonth;
+  }
   // return of(assignment);
   getAssignmentsPagine(page: number, limit: number) {
     return this.http.get<any>(this.url + '?page=' + page + '&limit=' + limit);
@@ -18,15 +27,13 @@ export class AssignmentsService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  url = 'http://localhost:8010/api/assignments';
+  url = 'http://localhost:8010/api/db-angular-project';
   bdInitialAssignments = bdInitialAssignments;
 
   // assignments: Assignment[] = [];
+  idCurrent: number = 0;
 
-  // idCurrent: number = this.assignments.length + 1;
-
-  constructor(private loggingService: LoggingService,
-    private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getAssignment(id: number): Observable<Assignment | undefined> {
     // const assignment:Assignment|undefined = this.assignments.find(a => a.id === id);
@@ -38,16 +45,21 @@ export class AssignmentsService {
         catchError(this.handleError<Assignment>(`getAssignment id=${id}`)));
   }
 
-  getAssignments(): Observable<Assignment[]> {
+  getAssignments() {
     // return of(this.assignments);
-    return this.http.get<Assignment[]>(this.url);
+    return this.http.get<any>(this.url + '?page=all');
   }
 
   addAssignment(assignment: Assignment): Observable<any> {
     // this.assignments.push(assignment);
     // this.idCurrent = this.assignments.length + 1;
     // this.loggingService.log(assignment.nom, "ajouté");
-    console.log(assignment);
+
+    // console.log(assignment);
+    if (!assignment.id) {
+      this.idCurrent++;
+      assignment.id = this.idCurrent;
+    }
     return this.http.post<Assignment>(this.url, assignment);
   }
 
@@ -82,12 +94,19 @@ export class AssignmentsService {
 
     bdInitialAssignments.forEach(a => {
       const newAssignment = new Assignment();
-      newAssignment.id = a.id;
       newAssignment.nom = a.nom;
       newAssignment.dateDeRendu = new Date(a.dateDeRendu);
-      newAssignment.rendu = a.rendu;
+
+      const newMatiere = [
+        {nom_matiere: a.nom.substring(3),
+        image_matiere: "",
+        image_prof: ""}
+      ];
+      newAssignment.matiere = newMatiere[0];
       appelVersAddAssignement.push(this.addAssignment(newAssignment));
+      this.idCurrent = bdInitialAssignments.length;
     });
     return forkJoin(appelVersAddAssignement);
   }
 }
+
