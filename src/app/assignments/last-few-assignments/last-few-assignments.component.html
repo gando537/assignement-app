@@ -1,25 +1,27 @@
 <div class="transactions">
-    <div class="title">Last few transactions</div>
+    <div class="title">{{title}}</div>
+    <div>
+      <mat-radio-group [(ngModel)]="selectedValue" (change)="onRadioChange()">
+        <mat-radio-button value="rendu">Rendu</mat-radio-button>
+        <mat-radio-button value="nonRendu">Non Rendu</mat-radio-button>
+      </mat-radio-group>
+    </div>
     <div class="transaction-wrapper">
       <div class="transaction" *ngFor="let transaction of transactions">
         <div class="image">
-          <img [src]="transaction.imgSrc" alt="" />
+          <img [src]="transaction.img" alt="" />
         </div>
-        <div class="title">{{ transaction.title }}</div>
-        <div class="price">{{ transaction.price }}</div>
+        <div class="title">{{ transaction.name }}</div>
+        <div class="price">{{ transaction.date }}</div>
         <div class="shop-location">
-          <div class="shop">{{ transaction.shop }}</div>
-          <div class="location">{{ transaction.location }}</div>
+          <div class="shop">{{ transaction.matiere }}</div>
+          <p appRendu *ngIf="transaction.status; else nonsoumis">Rendu : {{transaction.note}} / 20</p>
+                        <ng-template #nonsoumis>
+                            <p appNonRendu mat-line>Non rendu</p>
+                        </ng-template>
         </div>
-        <div
-          class="status"
-          [ngClass]="{
-            confirmed: transaction.status === 'confirmed',
-            pending: transaction.status === 'pending',
-            shipped: transaction.status === 'shipped'
-          }"
-        >
-          {{ transaction.status }}
+        <div class="status">
+          {{ transaction.author }}
         </div>
       </div>
     </div>

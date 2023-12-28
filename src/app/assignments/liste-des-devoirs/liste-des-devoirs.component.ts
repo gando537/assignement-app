@@ -21,8 +21,8 @@ import { UploadService } from '../../shared/services/upload.service';
       state('*', style({
         opacity: 1
       })),
-      transition('void => *', animate('3000ms ease-in')),
-      transition('* => void', animate('3000ms ease-out'))
+      transition('void => *', animate('2000ms ease-in')),
+      transition('* => void', animate('2000ms ease-out'))
     ])
   ]
 })

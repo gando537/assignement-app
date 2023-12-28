@@ -4,11 +4,109 @@ import { Assignment } from '../../assignments/models/assignments.model';
 import { LoggingService } from './logging.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { bdInitialAssignments } from '../datas/data-initial-assignments';
+import { Color } from 'highcharts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssignmentsService {
+  getAssignmentsByStatus(assignments: Assignment[] | undefined): any[] {
+    let nbAssignmentsByDate: [string, string, string, string, string, Boolean, number][] = [];
+    assignments?.forEach(a => {
+        let img = a.matiere.image_matiere;
+        let data = new Date(a.dateDeRendu);
+        let month = data.getMonth();
+        let day = data.getDate();
+        let year = data.getFullYear();
+        let author = a.auteur;
+        let nom_matiere = a.matiere.nom_matiere;
+        let status = a.rendu;
+        let note = a.note ? a.note : 0;
+        nbAssignmentsByDate.push([img, day + '/' + month + '/' + year, a.nom, author, nom_matiere, status, note]);
+    });
+    return nbAssignmentsByDate;
+  }
+  getAssignmentsMoyenneNote(assignments: Assignment[] | undefined): any[] {
+    let nbAssignmentsByMatiere: [string, number][] = [
+      ["Web(Angular)", 0],
+      ["BD", 0],
+      ["Outils d'ingénierie", 0],
+      ["Diagnostic et gestion financière", 0],
+      ["Cadrage d'un projet SI", 0],
+      ["Composants logiciels pour l'entreprise", 0],
+      ["Communication", 0]
+    ];
+    assignments?.forEach(a => {
+      let matiere = a.matiere.nom_matiere;
+      switch (matiere) {
+        case "Web(Angular)":
+          nbAssignmentsByMatiere[0][1] += a.note ? a.note : 0;
+          break;
+        case "BD":
+          nbAssignmentsByMatiere[1][1] += a.note ? a.note : 0;
+          break;
+        case "Outils d'ingénierie":
+          nbAssignmentsByMatiere[2][1] += a.note ? a.note : 0;
+          break;
+        case "Diagnostic et gestion financière":
+          nbAssignmentsByMatiere[3][1] +=  a.note ? a.note : 0;
+          break;
+        case "Cadrage d'un projet SI":
+          nbAssignmentsByMatiere[4][1] += a.note ? a.note : 0;
+          break;
+        case "Composants logiciels pour l'entreprise":
+          nbAssignmentsByMatiere[5][1] += a.note ? a.note : 0;
+          break;
+        case "Communication":
+          nbAssignmentsByMatiere[6][1] += a.note ? a.note : 0;
+          break;
+      }
+    });
+    const nbAssignments = this.getAssignmentsByMatiere(assignments);
+    nbAssignmentsByMatiere.forEach(a => {
+      a[1] = a[1] / nbAssignments.find(n => n[0] === a[0])[1];
+    });
+    return nbAssignmentsByMatiere;
+  }
+  getAssignmentsByMatiere(assignments: Assignment[] | undefined): any[] {
+    let nbAssignmentsByMatiere: [string, number][] = [
+      ["Web(Angular)", 0],
+      ["BD", 0],
+      ["Outils d'ingénierie", 0],
+      ["Diagnostic et gestion financière", 0],
+      ["Cadrage d'un projet SI", 0],
+      ["Composants logiciels pour l'entreprise", 0],
+      ["Communication", 0]
+    ];
+    assignments?.forEach(a => {
+      let matiere = a.matiere.nom_matiere;
+      switch (matiere) {
+        case "Web(Angular)":
+          nbAssignmentsByMatiere[0][1]++;
+          break;
+        case "BD":
+          nbAssignmentsByMatiere[1][1]++;
+          break;
+        case "Outils d'ingénierie":
+          nbAssignmentsByMatiere[2][1]++;
+          break;
+        case "Diagnostic et gestion financière":
+          nbAssignmentsByMatiere[3][1]++;
+          break;
+        case "Cadrage d'un projet SI":
+          nbAssignmentsByMatiere[4][1]++;
+          break;
+        case "Composants logiciels pour l'entreprise":
+          nbAssignmentsByMatiere[5][1]++;
+          break;
+        case "Communication":
+          nbAssignmentsByMatiere[6][1]++;
+          break;
+      }
+    });
+
+    return nbAssignmentsByMatiere;
+  }
   getAssignmentsByMonth(assignments: Assignment[] | undefined): any[] {
     let nbAssignmentsByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     assignments?.forEach(a => {
@@ -51,11 +149,7 @@ export class AssignmentsService {
   }
 
   addAssignment(assignment: Assignment): Observable<any> {
-    // this.assignments.push(assignment);
-    // this.idCurrent = this.assignments.length + 1;
-    // this.loggingService.log(assignment.nom, "ajouté");
 
-    // console.log(assignment);
     if (!assignment.id) {
       this.idCurrent++;
       assignment.id = this.idCurrent;
@@ -69,13 +163,6 @@ export class AssignmentsService {
 
   deleteAssignment(assignment: Assignment): Observable<String> {
 
-    // let index = this.assignments.indexOf(assignment);
-    // if(index > -1){
-    //   // this.idCurrent = assignment.id ;
-    //   this.assignments.splice(index, 1);
-    // }
-    // this.loggingService.log(assignment.nom, "supprimé");
-    // return of("Assignment service: Assignment supprimé");
     let deleteUrl = this.url + '/' + assignment._id;
     return this.http.delete<String>(deleteUrl);
   }

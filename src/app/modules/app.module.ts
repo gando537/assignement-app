@@ -45,6 +45,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TopWidgetsComponent } from '../assignments/top-widgets/top-widgets.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChartModule } from 'angular-highcharts';
+import { MatRadioModule } from '@angular/material/radio';
 import { StatsCurveComponent } from '../assignments/stats-curve/stats-curve.component';
 import { StatsDiagramComponent } from '../assignments/stats-diagram/stats-diagram.component';
 import { LastFewAssignmentsComponent } from '../assignments/last-few-assignments/last-few-assignments.component';
@@ -103,7 +104,8 @@ import { TopThreeAssignmentsComponent } from '../assignments/top-three-assignmen
     MatPaginatorModule,
     MatOptionModule,
     FontAwesomeModule,
-    ChartModule
+    ChartModule,
+    MatRadioModule
   ],
   providers: [{
     provide: MatDialogRef,

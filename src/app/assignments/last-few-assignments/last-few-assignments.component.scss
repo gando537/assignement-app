@@ -1,21 +1,37 @@
+$color_1: 'green';
+$color_2: 'red';
+
+.bold-text {
+  font-weight: bold;
+}
+
+.rendu {
+	color: $color_1;
+}
+
+.nonRendu {
+	color: $color_2;
+}
+
 .transactions {
     .transaction-wrapper {
       overflow: auto;
-      height: 185px;
+      height: 250px;
     }
     .title {
-      padding: 20px;
+      @extend .bold-text;
+      padding: 10px;
       padding-bottom: 5px;
       text-align: center;
       color: #333333;
-      font-size: 18px;
+      font-size: 16px;
       font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica,
         sans-serif;
     }
     .transaction {
       display: flex;
       align-items: center;
-      padding: 5px 20px;
+      padding: 2px 10px;
       border-bottom: 1px solid #f0f0f0;
       .image {
         width: 55px;
@@ -26,28 +42,28 @@
         }
       }
       .title {
-        padding: 10px;
-        font-size: 16px;
+        padding: 5px;
+        font-size: 12px;
         width: 190px;
       }
       .price {
-        padding: 10px;
-        font-size: 16px;
+        padding: 5px;
+        font-size: 12px;
         width: 90px;
       }
       .shop-location {
-        padding: 10px;
-        font-size: 16px;
+        padding: 5px;
+        font-size: 12px;
         width: 190px;
         .location {
           margin-top: 4px;
           font-size: 14px;
-          color: grey;
+          color: red;
         }
       }
       .status {
-        padding: 10px;
-        font-size: 15px;
+        padding: 5px;
+        font-size: 11px;
         text-transform: uppercase;
         font-weight: bold;
         &.confirmed {
