@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, forkJoin, of, tap } from 'rxjs';
+import { Observable, catchError, forkJoin, of, tap, BehaviorSubject } from 'rxjs';
 import { Assignment } from '../../assignments/models/assignments.model';
 import { LoggingService } from './logging.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -10,22 +10,33 @@ import { Color } from 'highcharts';
   providedIn: 'root'
 })
 export class AssignmentsService {
+
+  url = 'http://localhost:8010/api/db-angular-project';
+
+  private assignmentsSource = new BehaviorSubject<any[]>([]);
+  currentAssignments = this.assignmentsSource.asObservable();
+
+  changeAssignments(assignments: any[]) {
+    this.assignmentsSource.next(assignments);
+  }
+
   getAssignmentsByStatus(assignments: Assignment[] | undefined): any[] {
     let nbAssignmentsByDate: [string, string, string, string, string, Boolean, number][] = [];
     assignments?.forEach(a => {
-        let img = a.matiere.image_matiere;
-        let data = new Date(a.dateDeRendu);
-        let month = data.getMonth();
-        let day = data.getDate();
-        let year = data.getFullYear();
-        let author = a.auteur;
-        let nom_matiere = a.matiere.nom_matiere;
-        let status = a.rendu;
-        let note = a.note ? a.note : 0;
-        nbAssignmentsByDate.push([img, day + '/' + month + '/' + year, a.nom, author, nom_matiere, status, note]);
+      let img = a.matiere.image_matiere;
+      let data = new Date(a.dateDeRendu);
+      let month = data.getMonth();
+      let day = data.getDate();
+      let year = data.getFullYear();
+      let author = a.auteur;
+      let nom_matiere = a.matiere.nom_matiere;
+      let status = a.rendu;
+      let note = a.note ? a.note : 0;
+      nbAssignmentsByDate.push([img, day + '/' + month + '/' + year, a.nom, author, nom_matiere, status, note]);
     });
     return nbAssignmentsByDate;
   }
+
   getAssignmentsMoyenneNote(assignments: Assignment[] | undefined): any[] {
     let nbAssignmentsByMatiere: [string, number][] = [
       ["Web(Angular)", 0],
@@ -49,7 +60,7 @@ export class AssignmentsService {
           nbAssignmentsByMatiere[2][1] += a.note ? a.note : 0;
           break;
         case "Diagnostic et gestion financière":
-          nbAssignmentsByMatiere[3][1] +=  a.note ? a.note : 0;
+          nbAssignmentsByMatiere[3][1] += a.note ? a.note : 0;
           break;
         case "Cadrage d'un projet SI":
           nbAssignmentsByMatiere[4][1] += a.note ? a.note : 0;
@@ -62,12 +73,56 @@ export class AssignmentsService {
           break;
       }
     });
-    const nbAssignments = this.getAssignmentsByMatiere(assignments);
+    const nbAssignments = this.getAssignmentsRendu(assignments);
     nbAssignmentsByMatiere.forEach(a => {
-      a[1] = a[1] / nbAssignments.find(n => n[0] === a[0])[1];
+      let note = a[1];
+      let nb = nbAssignments.find(n => n[0] === a[0])[1];
+      a[1] = note / nb;
     });
     return nbAssignmentsByMatiere;
   }
+
+  getAssignmentsRendu(assignments: Assignment[] | undefined): any[] {
+    let nbAssignmentsByMatiere: [string, number][] = [
+      ["Web(Angular)", 0],
+      ["BD", 0],
+      ["Outils d'ingénierie", 0],
+      ["Diagnostic et gestion financière", 0],
+      ["Cadrage d'un projet SI", 0],
+      ["Composants logiciels pour l'entreprise", 0],
+      ["Communication", 0]
+    ];
+    assignments?.forEach(a => {
+      if (a.rendu) {
+        let matiere = a.matiere.nom_matiere;
+        switch (matiere) {
+          case "Web(Angular)":
+            nbAssignmentsByMatiere[0][1]++;
+            break;
+          case "BD":
+            nbAssignmentsByMatiere[1][1]++;
+            break;
+          case "Outils d'ingénierie":
+            nbAssignmentsByMatiere[2][1]++;
+            break;
+          case "Diagnostic et gestion financière":
+            nbAssignmentsByMatiere[3][1]++;
+            break;
+          case "Cadrage d'un projet SI":
+            nbAssignmentsByMatiere[4][1]++;
+            break;
+          case "Composants logiciels pour l'entreprise":
+            nbAssignmentsByMatiere[5][1]++;
+            break;
+          case "Communication":
+            nbAssignmentsByMatiere[6][1]++;
+            break;
+        }
+      }
+    });
+    return nbAssignmentsByMatiere;
+  }
+
   getAssignmentsByMatiere(assignments: Assignment[] | undefined): any[] {
     let nbAssignmentsByMatiere: [string, number][] = [
       ["Web(Angular)", 0],
@@ -104,9 +159,9 @@ export class AssignmentsService {
           break;
       }
     });
-
     return nbAssignmentsByMatiere;
   }
+
   getAssignmentsByMonth(assignments: Assignment[] | undefined): any[] {
     let nbAssignmentsByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     assignments?.forEach(a => {
@@ -116,16 +171,20 @@ export class AssignmentsService {
     });
     return nbAssignmentsByMonth;
   }
+
   // return of(assignment);
-  getAssignmentsPagine(page: number, limit: number) {
-    return this.http.get<any>(this.url + '?page=' + page + '&limit=' + limit);
+  getAssignmentsPagine(page: number, limit: number, searchTerm?: string): Observable<any> {
+    let url = this.url + '?page=' + page + '&limit=' + limit;
+    if (searchTerm) {
+      url += '&search=' + searchTerm;
+    }
+    return this.http.get<any>(url);
   }
 
   private HttpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  url = 'http://localhost:8010/api/db-angular-project';
   bdInitialAssignments = bdInitialAssignments;
 
   // assignments: Assignment[] = [];
@@ -185,9 +244,11 @@ export class AssignmentsService {
       newAssignment.dateDeRendu = new Date(a.dateDeRendu);
 
       const newMatiere = [
-        {nom_matiere: a.nom.substring(3),
-        image_matiere: "",
-        image_prof: ""}
+        {
+          nom_matiere: a.nom.substring(3),
+          image_matiere: "",
+          image_prof: ""
+        }
       ];
       newAssignment.matiere = newMatiere[0];
       appelVersAddAssignement.push(this.addAssignment(newAssignment));
@@ -196,4 +257,3 @@ export class AssignmentsService {
     return forkJoin(appelVersAddAssignement);
   }
 }
-

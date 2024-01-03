@@ -105,7 +105,8 @@ import { TopThreeAssignmentsComponent } from '../assignments/top-three-assignmen
     MatOptionModule,
     FontAwesomeModule,
     ChartModule,
-    MatRadioModule
+    MatRadioModule,
+
   ],
   providers: [{
     provide: MatDialogRef,

@@ -4,6 +4,10 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { DialogViewComponent } from '../dialog-view/dialog-view.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { AssignmentsService } from 'src/app/shared/services/assignments.service';
+import { Assignment } from '../models/assignments.model';
 
 @Component({
   selector: 'app-header',
@@ -25,10 +29,14 @@ export class HeaderComponent implements OnInit {
   searchKey: any;
   searchText = '';
 
-  constructor(public authService: AuthService,
-              private router: Router,
-              private dialogView: DialogViewComponent,
-              private domSanitizer: DomSanitizer) { }
+  searchTerm: string = '';
+  filteredAssignments: Assignment[] = [];
+
+  constructor(private assignmentsService: AssignmentsService,
+    public authService: AuthService,
+    private router: Router,
+    private dialogView: DialogViewComponent,
+    private domSanitizer: DomSanitizer) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -41,29 +49,43 @@ export class HeaderComponent implements OnInit {
     this.selectedLanguage = this.languages[0];
   }
 
+  onSearch(): void {
+    console.log('searchTerm : ', this.searchTerm);
+    this.assignmentsService.getAssignmentsPagine(1, 30, this.searchTerm)
+      .subscribe(data => {
+        this.filteredAssignments = data.docs;
+        this.assignmentsService.changeAssignments(this.filteredAssignments);
+        console.log('filteredAssignments : ', this.filteredAssignments);
+      },
+        error => {
+          console.log('😢 Oh no!', error);
+        }
+      );
+  }
+
   getHeadClass(): string {
     let styleClass = '';
 
     if (this.collapsed && this.screenWidth > 768) {
       styleClass = 'head-trimmed';
-    }else{
+    } else {
       styleClass = 'head-md-screen';
     }
     return styleClass;
   }
 
   checkCanShowSearchAsOverlay(innerWidth: number): void {
-    if(innerWidth < 845){
+    if (innerWidth < 845) {
       this.canShowSearchAsOverlay = true;
     } else {
       this.canShowSearchAsOverlay = false;
     }
   }
 
-  loggInOrOut(label:string): void {
-    if(label !== 'Login' && label !== 'Logout')
+  loggInOrOut(label: string): void {
+    if (label !== 'Login' && label !== 'Logout')
       return;
-    if(this.authService.isLoggedIn){
+    if (this.authService.isLoggedIn) {
       this.authService.logOut();
       this.router.navigate(['/dashboard']);
     } else {

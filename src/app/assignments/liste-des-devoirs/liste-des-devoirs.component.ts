@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { Assignment } from '../models/assignments.model';
 import { AssignmentsService } from '../../shared/services/assignments.service';
 import { AuthService } from '../../shared/services/auth.service';
@@ -7,7 +7,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { GestionElevesService } from '../../shared/services/gestion-eleves.service';
 import { GestionMatieresService } from '../../shared/services/gestion-matieres.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { UploadService } from '../../shared/services/upload.service';
+
 
 @Component({
   selector: 'app-liste-des-devoirs',
@@ -38,7 +38,7 @@ export class ListeDesDevoirsComponent implements OnInit, AfterViewInit {
   nextPage: number = 0;
   url: string = '';
 
-  assignments: Assignment[] = [];
+  @Input() assignments: Assignment[] = [];
   showFirstLastButtons: BooleanInput = true;
 
   constructor(public assignmentsService: AssignmentsService,
@@ -54,7 +54,7 @@ export class ListeDesDevoirsComponent implements OnInit, AfterViewInit {
   }
 
   setCardHeights() {
-    if (this.cards) {
+    if (this.cards && this.cards.length > 0 && this.cards.first.nativeElement) {
       const cardHeights = this.cards.map(card => card.nativeElement.offsetHeight);
       const maxHeights = Math.max(...cardHeights);
 
@@ -65,21 +65,32 @@ export class ListeDesDevoirsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
-    .subscribe(data => {
-      this.assignments = data.docs;
-      this.page = data.page;
-      this.limit = data.limit;
-      this.totalDocs = data.totalDocs;
-      this.totalPages = data.totalPages;
-      this.hasPrevPage = data.hasPrevPage;
-      this.hasNextPage = data.hasNextPage;
-      this.prevPage = data.prevPage;
-      this.nextPage = data.nextPage;
+    this.assignmentsService.currentAssignments.subscribe(assignments => {
+      this.assignments = assignments;
       console.log("Assignments récupérés avec succès !");
+      console.log(this.assignments);
     });
     // console.log(this.assignments);
     this.url = this.assignmentsService.url;
+
+    this.loadInitialData();
+  }
+
+  loadInitialData() {
+    this.assignmentsService.getAssignmentsPagine(this.page, this.limit) // ou vos valeurs par défaut de page et limit
+      .subscribe(data => {
+        this.assignments = data.docs;
+        this.page = data.page;
+        this.limit = data.limit;
+        this.totalDocs = data.totalDocs;
+        this.totalPages = data.totalPages;
+        this.hasPrevPage = data.hasPrevPage;
+        this.hasNextPage = data.hasNextPage;
+        this.prevPage = data.prevPage;
+        this.nextPage = data.nextPage;
+        this.assignmentsService.changeAssignments(this.assignments);
+        // Mettez à jour les informations de pagination ici
+      });
   }
 
   peuplerBD() {
