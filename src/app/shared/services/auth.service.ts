@@ -4,6 +4,7 @@ import { userItems } from '../../assignments/header/header-dummy-data';
 import { User } from '../../assignments/models/users.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class AuthService {
   listUser = listUser;
   userItems = userItems;
   usernameBrider = '';
+  data: any;
 
   url = 'http://localhost:8010/api/db-angular-project/users';
 
@@ -23,14 +25,46 @@ export class AuthService {
     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
   };
 
+  private tokenKey = 'token';
+  private userKey = 'user';
+
+  saveToken(token: string): void {
+    console.log('saveToken called : ' + token);
+    localStorage.setItem(this.tokenKey, token);
+  }
+
+  saveUser(user: any): void {
+    console.log('saveUser called : ' + user);
+    localStorage.setItem(this.userKey, JSON.stringify(user));
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
   constructor(private http: HttpClient) { }
 
   setLogIn(data: any) {
+    this.data = data;
     this.isLoggedIn = true;
     userItems[3].label = 'Logout';
     this.username = data.username;
     this.usernameBrider = data.username.length > 3 ? data.username.substring(0, 3) + '...' : data.username;
     this.isadmin = data.role === 'admin' ? true : false;
+    this.saveToken(data.token);
+    this.saveUser(data);
+  }
+
+  relogUser() {
+    if (localStorage.getItem('user') === null || this.isLoggedInOut() === false) {
+      return;
+    }
+    this.data = JSON.parse(localStorage.getItem('user') || '{}');
+    this.isLoggedIn = true;
+    userItems[3].label = 'Logout';
+    this.username = this.data.username;
+    this.usernameBrider = this.data.username.length > 3 ? this.data.username.substring(0, 3) + '...' : this.data.username;
+    this.isadmin = this.data.role === 'admin' ? true : false;
   }
 
   logOut() {
@@ -39,6 +73,8 @@ export class AuthService {
     this.username = '';
     this.usernameBrider = '';
     this.isadmin = false;
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.userKey);
   }
 
   isAdmin() {
@@ -53,6 +89,7 @@ export class AuthService {
   isLogged() {
     const isUserLogged = new Promise(
       (resolve, reject) => {
+          this.isLoggedIn = this.getToken() !== null;
           resolve(this.isLoggedIn);
       });
     return isUserLogged;
@@ -95,4 +132,30 @@ export class AuthService {
   getUser(name: string): Observable<User | undefined> {
     return this.http.get<User>(this.url + '/' + name);
   }
+
+  getTokenExpirationDate(token: string): Date | null {
+    const decoded: any = jwtDecode(token);
+
+    if (decoded.exp === undefined) return null;
+
+    const date = new Date(0);
+    date.setUTCSeconds(decoded.exp);
+    return date;
+  }
+
+  isTokenExpired(token?: string): boolean {
+    if(!token) token = this.getToken()!;
+    if(!token) return true;
+
+    const date = this.getTokenExpirationDate(token);
+    if(date === undefined) return false;
+    return !(date!.valueOf() > new Date().valueOf());
+  }
+
+  isLoggedInOut(): boolean {
+    const token = this.getToken();
+    return token ? !this.isTokenExpired(token) : false;
+  }
 }
+
+

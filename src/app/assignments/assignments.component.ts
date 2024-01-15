@@ -42,7 +42,6 @@ export class AssignementsComponent implements OnInit, AfterViewInit {
   showFirstLastButtons: BooleanInput = true;
 
   constructor(public assignmentsService: AssignmentsService,
-              public authService: AuthService,
               public gestionElevesService: GestionElevesService,
               public gestionMatieresService: GestionMatieresService) {
   }
@@ -77,6 +76,7 @@ export class AssignementsComponent implements OnInit, AfterViewInit {
       this.prevPage = data.prevPage;
       this.nextPage = data.nextPage;
       console.log("Assignments récupérés avec succès !");
+
     });
     // console.log(this.assignments);
     this.url = this.assignmentsService.url;
@@ -126,10 +126,6 @@ export class AssignementsComponent implements OnInit, AfterViewInit {
         this.nextPage = data.nextPage;
         console.log("Assignments récupérés avec succès !");
       });
-  }
-
-  islogged() {
-    return this.authService.isLoggedIn;
   }
 
 }
