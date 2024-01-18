@@ -193,8 +193,6 @@ export class AssignmentsService {
   constructor(private http: HttpClient) { }
 
   getAssignment(id: number): Observable<Assignment | undefined> {
-    // const assignment:Assignment|undefined = this.assignments.find(a => a.id === id);
-    // return of(assignment);
     return this.http.get<Assignment>(this.url + '/' + id)
       .pipe(tap(_ => {
         console.log(`tap: assignment avec id=${id} requête envoyée sur le serveur MongoDB Cloud Atlas`);

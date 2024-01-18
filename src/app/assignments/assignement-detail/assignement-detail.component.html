@@ -1,19 +1,35 @@
 <div class="container">
     <mat-card *ngIf="assignmentTransmis">
+        <mat-card-header>
+            <div class="outlook" *ngIf="assignmentTransmis.matiere.image_matiere" >
+                <img src="../{{assignmentTransmis.matiere.image_matiere}}"/>
+            </div>
+            <div>
+                <mat-card-title>
+                    {{assignmentTransmis.nom}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yyyy'}}
+                </mat-card-subtitle>
+            </div>
+        </mat-card-header>
         <mat-card-content>
-            <mat-card-title>
-                {{assignmentTransmis.nom}}
-            </mat-card-title>
-            <mat-card-subtitle>
-                {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yyyy'}}
-            </mat-card-subtitle>
             <mat-card-actions id="bottom">
                 <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Devoir
                     rendu</mat-checkbox>
                 <p *ngIf="assignmentTransmis.rendu">Note : {{assignmentTransmis.note}} / 20</p>
-                <div>
+                <div>Auteur :
                     <span>{{assignmentTransmis.auteur}}</span>
-                    <span>{{assignmentTransmis.matiere.nom_matiere}}</span>
+                </div>
+                <div>
+                    <span>Remarques :
+                        {{assignmentTransmis.remarques}}
+                    </span>
+                </div>
+                <div>
+                    <span>Matière :
+                        {{assignmentTransmis.matiere.nom_matiere}}
+                    </span>
                 </div>
                 <nav>
                     <button mat-flat-button color="primary" (click)="onClickEdit()"
