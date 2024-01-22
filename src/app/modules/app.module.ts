@@ -50,6 +50,7 @@ import { StatsCurveComponent } from '../assignments/stats-curve/stats-curve.comp
 import { StatsDiagramComponent } from '../assignments/stats-diagram/stats-diagram.component';
 import { LastFewAssignmentsComponent } from '../assignments/last-few-assignments/last-few-assignments.component';
 import { TopThreeAssignmentsComponent } from '../assignments/top-three-assignments/top-three-assignments.component';
+import { DynamicFontSizeDirective } from '../shared/directives/dynamic-font-size.directive';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { TopThreeAssignmentsComponent } from '../assignments/top-three-assignmen
     StatsCurveComponent,
     StatsDiagramComponent,
     LastFewAssignmentsComponent,
-    TopThreeAssignmentsComponent
+    TopThreeAssignmentsComponent,
+    DynamicFontSizeDirective
   ],
   imports: [
     BrowserModule,

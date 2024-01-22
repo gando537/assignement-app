@@ -1,16 +1,239 @@
-
-.checkbox {
-	margin-left: 10px;
-}
-#bottom {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
-}
-
 .container {
 	margin-top: 10px;
 	width: 80%;
 	align-items: center;
 	margin: auto;
+
+	mat-card {
+
+		width: 100%; // Utiliser 100% jusqu'à ce que l'écran atteigne une certaine largeur
+		max-width: 800px; // Vous pouvez définir une largeur maximale pour que la carte ne soit pas trop large sur de grands écrans
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		border-radius: 8px;
+
+		mat-card-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 16px;
+			background-color: #a5e02f; // Couleur de fond pour l'en-tête
+			border-radius: 4px 4px 4px 4px; // Coins arrondis en haut
+
+			.outlook img {
+				width: 100%; // Définissez une largeur fixe pour votre image
+				height: 100%; // Hauteur égale à la largeur pour rendre l'image carrée
+				border-radius: 50%; // Cela rendra les coins de l'image complètement arrondis, formant un cercle
+				object-fit: cover; // Assure que l'image couvre toute la surface du cercle sans être déformée
+				border: 2px solid #fff; // Optionnel: Ajoute une bordure blanche autour de l'image si désiré
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Optionnel: Ajoute une légère ombre pour un effet de profondeur
+			}
+
+			@media (max-width: 500px) { // Requête média pour les téléphones mobiles
+                flex-direction: column; // Change la direction du flex pour une disposition en colonne
+                align-items: flex-start; // Aligner les éléments en haut
+
+                .outlook {
+                    align-self: center; // Centrer l'image
+                    margin-bottom: 10px; // Ajouter un espace en dessous de l'image
+                }
+
+                .outlook img {
+                    width: 80px; // Taille réduite de l'image pour les petits écrans
+                    height: 80px;
+                }
+            }
+
+			.header-content {
+
+				// Styles pour le nom de l'assignation
+				.assignment-name {
+					font-size: 1.8em; // Taille de police grande pour le titre
+					font-weight: 600; // Poids de police semi-gras
+					color: #5E35B1; // Couleur de police pourpre pour le titre
+					margin-bottom: 0.5em; // Espacement en dessous du titre
+					text-transform: uppercase; // Mettre le texte en majuscules
+					letter-spacing: 0.05em; // Espacer légèrement les lettres
+				}
+
+				// Style pour la date de rendu
+				.due-date {
+					font-size: 1.1em; // Taille de police légèrement plus grande pour la date
+					font-weight: 400; // Poids de police normal
+					color: #F4511E; // Couleur de police rouge-orange pour l'urgence
+					margin-top: 0.5em; // Espacement au-dessus de la date
+					background-color: #FFF3E0; // Fond pâle pour mettre en évidence la date
+					border-radius: 4px; // Coins arrondis pour le fond
+					display: inline-block; // Pour appliquer le padding autour du texte
+					padding: 0.2em 0.6em; // Padding autour de la date
+					box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Ombre subtile pour le relief
+				}
+
+				// Styles pour "Matière"
+				.matiere-nom {
+					font-size: 1.1em; // Taille de police plus grande
+					font-weight: bold; // Texte en gras
+					color: #3f51b5; // Couleur personnalisée
+					margin-bottom: 4px; // Espacement sous le titre de la matière
+				}
+
+				// Styles pour "Auteur"
+				.auteur-nom {
+					font-size: 0.9em; // Légèrement plus grand que le texte normal
+					font-style: italic; // Texte en italique
+					color: #757575; // Couleur gris foncé pour un contraste doux
+					margin-top: 4px; // Espacement au-dessus du nom de l'auteur
+				}
+
+				.note-container {
+					display: flex;
+					align-items: center; // Centrer verticalement le texte et la note
+					justify-content: start; // Aligner à gauche
+					background-color: #e8f5e9; // Fond vert pâle pour mettre en évidence la note
+					padding: 5px 10px;
+					border-radius: 5px; // Coins arrondis pour le conteneur de la note
+					margin-top: 8px; // Espacement par rapport aux éléments précédents
+
+					.note-label {
+						font-weight: bold; // Rendre le label "Note" en gras
+						color: #388e3c; // Couleur verte foncée pour le label "Note"
+						margin-right: 5px; // Espacement entre le label "Note" et la note elle-même
+					}
+
+					.note-value {
+						font-size: 1.2em; // Taille de police plus grande pour la note
+						font-weight: bold; // Rendre la note en gras
+						color: #1b5e20; // Couleur verte plus foncée pour la note
+					}
+				}
+
+				@media (max-width: 500px) {
+					.mat-card-header,
+					.mat-card-content {
+						padding: 8px;
+					}
+
+					.header-content {
+						.assignment-name {
+							font-size: 1.3em; // Taille encore plus petite pour les très petits écrans
+						}
+						.due-date {
+							font-size: 0.9em;
+						}
+					}
+
+					.libelle-remarque {
+						font-size: 0.9em;
+					}
+
+					// Ajustez les tailles de police et les marges des autres éléments comme nécessaire
+					.note-container {
+						padding: 5px 8px;
+					}
+
+					.note-label {
+						font-size: 0.9em;
+					}
+
+					.note-value {
+						font-size: 1em;
+					}
+				}
+
+				@media (max-width: 768px) {
+
+					// Pour les tablettes et les écrans plus petits
+					.mat-card-header,
+					.mat-card-content {
+						padding: 10px;
+					}
+
+					.header-content {
+						.assignment-name {
+							font-size: 1.5em; // Taille plus petite pour les petits écrans
+						}
+
+						.due-date {
+							font-size: 1em;
+						}
+					}
+
+					.libelle-remarque {
+						font-size: 1em;
+					}
+
+					// Ajustez également les tailles de police et les marges des autres éléments ici
+					.note-container {
+						padding: 5px 10px;
+					}
+
+					.note-label {
+						font-size: 1em;
+					}
+
+					.note-value {
+						font-size: 1.2em;
+					}
+				}
+			}
+
+			nav button {
+				background-color: #3f51b5; // Couleur de fond pour le bouton
+				color: white; // Texte blanc pour le bouton
+
+				&:hover {
+					background-color: darken(#3f51b5, 20%); // Assombrir le bouton au survol
+				}
+			}
+		}
+
+		mat-card-subtitle {
+			margin-bottom: 30px;
+		}
+
+		.libelle-remarque {
+			font-size: 1.2em; // Taille de police plus grande pour le libellé
+			font-weight: 500; // Poids de police moyen pour une importance modérée
+			color: #673AB7; // Couleur de police pourpre pour la distinction
+			background-color: #EDE7F6; // Couleur de fond légère pour faire ressortir le libellé
+			border-left: 4px solid #673AB7; // Bordure sur le côté pour une distinction supplémentaire
+			padding: 8px 16px; // Padding pour l'espacement interne
+			margin-top: 20px; // Marge en haut pour séparer du contenu au-dessus
+			margin-bottom: 10px; // Marge en bas pour séparer du contenu en dessous
+			display: inline-block; // Pour que le padding et la bordure s'appliquent correctement
+			border-radius: 4px; // Coins arrondis
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Ombre subtile pour le relief
+		}
+
+		.remarques {
+			margin-top: 20px;
+			display: flex;
+			flex-direction: column;
+			margin-top: 20px;
+			border: 1px solid #ccc; // Bordure grise
+			padding: 20px; // Espace intérieur
+			background-color: #f9f9f9; // Fond légèrement gris
+			border-radius: 4px;
+
+			em {
+				font-style: italic;
+				color: #999; // Couleur grise pour "Aucune remarque"
+			}
+		}
+
+		mat-card-actions {
+			display: flex;
+			justify-content: flex-end;
+			padding: 0;
+			margin-top: 20px;
+
+			button {
+				background-color: #f44336; // Couleur de fond pour le bouton DELETE
+				color: white; // Texte blanc pour le bouton
+
+				&:hover {
+					background-color: darken(#f44336, 20%); // Assombrir le bouton au survol
+				}
+			}
+		}
+	}
 }

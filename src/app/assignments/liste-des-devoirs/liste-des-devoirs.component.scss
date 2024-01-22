@@ -16,76 +16,168 @@ $color_2: 'red';
 		align-items: center;
 		justify-content: center;
 	}
-}
 
-.custom-card {
-	width: 100%;
-	/* Par défaut, pour les petits écrans */
-	height: auto;
-	/* Hauteur automatique pour s'adapter au contenu */
+	mat-card {
+		width: fit-content;
+		margin: 2vh;
+	}
 
-	@media (min-width: 650px) {
-		width: 30%;
-		/* Réduire la largeur à 30% sur les écrans de 600 pixels et plus */
-		height: 30%;
-		/* Hauteur fixe pour les écrans plus grands */
-		mat-card-title {
-			font-size: 100%;
+	.custom-card {
+		width: 100%;
+		/* Par défaut, pour les petits écrans */
+		height: auto;
+		/* Hauteur automatique pour s'adapter au contenu */
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		border-radius: 8px;
+		overflow: hidden;
+
+		mat-card-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background-color: #673AB7;
+			color: white;
+			max-height: 70px;
+
+			mat-card-title {
+				font-weight: bold;
+				color: white;
+				max-height: 50px;
+				margin-bottom: 10px;
+			}
+
+			mat-card-subtitle {
+				font-size: 1.1em; // Taille de police légèrement plus grande pour la date
+				font-weight: 400; // Poids de police normal
+				color: #F4511E; // Couleur de police rouge-orange pour l'urgence
+				margin-bottom: 0.5em; // Espacement au-dessus de la date
+				background-color: #FFF3E0; // Fond pâle pour mettre en évidence la date
+				border-radius: 4px; // Coins arrondis pour le fond
+				display: inline-block; // Pour appliquer le padding autour du texte
+				padding: 0.2em 0.6em; // Padding autour de la date
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+
+			.status {
+				// font-size: 1.1em;
+				// font-weight: bold;
+				// color: #3f51b5;
+				// margin-bottom: 4px;
+				padding: 10px;
+                border-radius: 4px;
+                margin-top: 16px;
+                text-align: center; // Centrer le texte dans le statut
+
+                p {
+                    font-size: 1.1em;
+                    font-weight: bold;
+                    display: inline-block;
+                    padding: 5px 10px;
+                    border-radius: 2px;
+                }
+
+				p[appRendu] {
+                    color: #388e3c; // Couleur verte pour "Rendu"
+                    background-color: #e8f5e9; // Fond vert pâle pour un meilleur contraste
+                }
+
+                p[appNonRendu] {
+                    color: #d32f2f; // Couleur rouge pour "Non rendu"
+                    background-color: #ffebee; // Fond rouge pâle
+                }
+			}
+		}
+
+		.content {
+
+			.outlook img {
+				width: 40%; // Définissez une largeur fixe pour votre image
+				height: 40%;
+				object-fit: cover;
+				border-radius: 50%;
+			}
+
+			.flex-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #f7f7f7; // Fond légèrement gris pour distinguer cette section
+                padding: 10px;
+                border-radius: 4px;
+                margin-bottom: 16px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Légère ombre pour un effet de profondeur
+
+                .temp {
+                    font-size: 1.1em; // Taille de police légèrement augmentée
+                    color: #333; // Couleur de police neutre
+
+                    span {
+                        font-weight: bold; // Mettre le texte en gras pour plus de visibilité
+                    }
+                }
+			}
+		}
+
+		@media (min-width: 650px) {
+			width: 30%;
+			/* Réduire la largeur à 30% sur les écrans de 600 pixels et plus */
+			height: 30%;
+
+			/* Hauteur fixe pour les écrans plus grands */
+			mat-card-title {
+				font-size: 100%;
+			}
+		}
+
+		@media (min-width: 900px) {
+			width: 30%;
+			/* Réduire la largeur à 20% sur les écrans de 900 pixels et plus */
+			height: 250px;
+
+			/* Hauteur fixe pour les écrans plus grands */
+			mat-card-title {
+				font-size: 100%;
+			}
+		}
+
+		@media (min-width: 1200px) {
+			width: 30%;
+			/* Réduire la largeur à 15% sur les écrans de 1200 pixels et plus */
+			height: 250px;
+
+			/* Hauteur fixe pour les écrans plus grands */
+			mat-card-title {
+				font-size: 100%;
+			}
 		}
 	}
-
-	@media (min-width: 900px) {
-		width: 30%;
-		/* Réduire la largeur à 20% sur les écrans de 900 pixels et plus */
-		height: 250px;
-		/* Hauteur fixe pour les écrans plus grands */
-		mat-card-title {
-			font-size: 100%;
-		}
-	}
-
-	@media (min-width: 1200px) {
-		width: 30%;
-		/* Réduire la largeur à 15% sur les écrans de 1200 pixels et plus */
-		height: 250px;
-		/* Hauteur fixe pour les écrans plus grands */
-		mat-card-title {
-			font-size: 100%;
-		}
-	}
 }
 
-.rendu {
-	color: $color_1;
-}
+// .rendu {
+// 	color: $color_1;
+// }
 
-.nonRendu {
-	color: $color_2;
-}
+// .nonRendu {
+// 	color: $color_2;
+// }
 
-.ajouterBtn {
-	margin: 5px;
-	align-self: flex-end;
-}
+// .ajouterBtn {
+// 	margin: 5px;
+// 	align-self: flex-end;
+// }
 
 
-.flex-row {
-	display: flex;
-	flex-direction: row;
+// .flex-row {
+// 	display: flex;
+// 	flex-direction: row;
 
-	>div {
-		flex: 50%;
-		padding: 10px;
-	}
-}
+// 	>div {
+// 		flex: 50%;
+// 		padding: 10px;
+// 	}
+// }
 
-mat-card {
-	width: fit-content;
-	margin: 2vh;
-}
-
-img {
-	width: 100%;
-	height: 50px;
-}
-
+// img {
+// 	width: 100%;
+// 	height: 50px;
+// }

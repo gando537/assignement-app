@@ -1,41 +1,48 @@
 <div class="container">
     <mat-card *ngIf="assignmentTransmis">
         <mat-card-header>
-            <div class="outlook" *ngIf="assignmentTransmis.matiere.image_matiere" >
-                <img src="../{{assignmentTransmis.matiere.image_matiere}}"/>
+            <div class="outlook" *ngIf="assignmentTransmis.matiere.image_matiere">
+                <img src="../{{assignmentTransmis.matiere.image_matiere}}" />
             </div>
-            <div>
-                <mat-card-title>
+            <div class="header-content">
+                <mat-card-title class="assignment-name">
                     {{assignmentTransmis.nom}}
                 </mat-card-title>
-                <mat-card-subtitle>
+                <mat-card-subtitle class="due-date">
                     {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yyyy'}}
                 </mat-card-subtitle>
-            </div>
-        </mat-card-header>
-        <mat-card-content>
-            <mat-card-actions id="bottom">
-                <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">Devoir
-                    rendu</mat-checkbox>
-                <p *ngIf="assignmentTransmis.rendu">Note : {{assignmentTransmis.note}} / 20</p>
-                <div>Auteur :
-                    <span>{{assignmentTransmis.auteur}}</span>
-                </div>
-                <div>
-                    <span>Remarques :
-                        {{assignmentTransmis.remarques}}
-                    </span>
-                </div>
-                <div>
+                <div class="matiere-nom">
                     <span>Matière :
                         {{assignmentTransmis.matiere.nom_matiere}}
                     </span>
                 </div>
-                <nav>
-                    <button mat-flat-button color="primary" (click)="onClickEdit()"
-                        [disabled]="!isLogged()">Edit</button>
-                </nav>
-                <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="!isAdmin()">DELETE ME</button>
+                <div *ngIf="assignmentTransmis.rendu" class="note-container">
+                    <span class="note-label">Note :</span>
+                    <span class="note-value">{{assignmentTransmis.note}} / 20</span>
+                </div>
+                <div class="auteur-nom">
+                    <span>Auteur :
+                        {{assignmentTransmis.auteur}}</span>
+                </div>
+            </div>
+            <nav>
+                <button style="margin-left: auto;" mat-flat-button color="primary" (click)="onClickEdit()" [disabled]="!isLogged()">Edit</button>
+            </nav>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="libelle-remarque">
+                <span>Remarques</span>
+            </div>
+            <div class="remarques">
+                <div class="remarques-content" *ngIf="assignmentTransmis.remarques; else noRemark">
+                    {{ assignmentTransmis.remarques }}
+                </div>
+                <ng-template #noRemark>
+                    <em>Aucune remarque</em>
+                </ng-template>
+            </div>
+            <mat-card-actions>
+                <button style="margin-left: auto;" mat-flat-button color="warn" (click)="onDelete()" [disabled]="!isAdmin()">DELETE</button>
             </mat-card-actions>
         </mat-card-content>
     </mat-card>
