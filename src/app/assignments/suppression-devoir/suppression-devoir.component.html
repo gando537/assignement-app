@@ -1,1 +1,32 @@
-<p>suppression-devoir works!</p>
+<main class="container">
+    <div @cardAnimation>
+        <mat-card class="content-list custom-card" #cards *ngFor="let assignment of assignments">
+            <nav>
+                <mat-card-header>
+                    <mat-card-title appDynamicFontSize texte="assignment.nom">
+                        {{ assignment.nom }}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{assignment.dateDeRendu | date: 'dd/MM/yyyy'}}
+                    </mat-card-subtitle>
+                    <div class="status">
+                        <mat-card-actions>
+                            <button style="margin-left: auto;" mat-flat-button color="warn"
+                                (click)="onDelete(assignment.nom)" [disabled]="!isAdmin()">DELETE</button>
+                        </mat-card-actions>
+                    </div>
+                </mat-card-header>
+                <mat-card-content class="content">
+                    <div class="outlook" *ngIf="assignment.image_matiere">
+                        <img src="../{{assignment.image_matiere}}" />
+                    </div>
+                    <div class="flex-row">
+                        <div class="temp">
+                            <span>Matière : {{assignment.nom_matiere}}</span>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </nav>
+        </mat-card>
+    </div>
+</main>

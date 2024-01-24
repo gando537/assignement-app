@@ -200,6 +200,11 @@ export class AssignmentsService {
         catchError(this.handleError<Assignment>(`getAssignment id=${id}`)));
   }
 
+  getUniqueAssignments(): Observable<any> {
+    return this.http.get<any>(this.url + '/uniques');
+  }
+
+
   getAssignments() {
     // return of(this.assignments);
     return this.http.get<any>(this.url + '?page=all');
@@ -223,6 +228,12 @@ export class AssignmentsService {
     let deleteUrl = this.url + '/' + assignment._id;
     return this.http.delete<String>(deleteUrl);
   }
+
+  deleteAssignmentUnique(name: String): Observable<String> {
+
+      let deleteUrl = this.url + '/uniques/' + name;
+      return this.http.delete<String>(deleteUrl);
+    }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
