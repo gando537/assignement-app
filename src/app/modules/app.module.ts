@@ -72,7 +72,7 @@ import { TopThreeAssignmentsComponent } from '../assignments/top-three-assignmen
     StatsCurveComponent,
     StatsDiagramComponent,
     LastFewAssignmentsComponent,
-    TopThreeAssignmentsComponent,
+    TopThreeAssignmentsComponent
   ],
   imports: [
     BrowserModule,
