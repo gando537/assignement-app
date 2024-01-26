@@ -11,7 +11,7 @@ import { Color } from 'highcharts';
 })
 export class AssignmentsService {
 
-  url = 'https://api-assignment-sigma.vercel.app/api/db-angular-project/';
+  url = 'https://api-assignment-sigma.vercel.app/api/db-angular-project';
 
   private assignmentsSource = new BehaviorSubject<any[]>([]);
   currentAssignments = this.assignmentsSource.asObservable();
