@@ -11,7 +11,7 @@ import { Color } from 'highcharts';
 })
 export class AssignmentsService {
 
-  url = 'http://localhost:8010/api/db-angular-project';
+  url = 'https://api-assignment-sigma.vercel.app/api/db-angular-project/';
 
   private assignmentsSource = new BehaviorSubject<any[]>([]);
   currentAssignments = this.assignmentsSource.asObservable();
@@ -225,7 +225,7 @@ export class AssignmentsService {
 
   deleteAssignment(assignment: Assignment): Observable<String> {
 
-    let deleteUrl = this.url + '/' + assignment._id;
+    let deleteUrl = this.url + '/' + assignment.id;
     return this.http.delete<String>(deleteUrl);
   }
 

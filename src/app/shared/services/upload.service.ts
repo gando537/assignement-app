@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UploadService {
-  private uploadUrl = 'http://localhost:8010/api/db-angular-project';
+  private uploadUrl = 'https://api-assignment-sigma.vercel.app/api/db-angular-project/';
   imageUrl: string | ArrayBuffer | null | undefined;
 
   constructor(private http: HttpClient) {}

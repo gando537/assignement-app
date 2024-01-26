@@ -9,7 +9,7 @@ import { bdInitialEleves } from '../datas/data-eleves';
 })
 export class GestionElevesService {
 
-  url = 'http://localhost:8010/api/db-angular-project/eleves';
+  url = 'https://api-assignment-sigma.vercel.app/api/db-angular-project/eleves';
 
   private HttpOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')

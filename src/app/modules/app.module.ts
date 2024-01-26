@@ -29,7 +29,6 @@ import { DashboardComponent } from '../assignments/dashboard/dashboard.component
 import { ListeDesDevoirsComponent } from '../assignments/liste-des-devoirs/liste-des-devoirs.component';
 import { EditAssignmentComponent } from '../assignments/edit-assignment/edit-assignment.component';
 import { SuppressionDevoirComponent } from '../assignments/suppression-devoir/suppression-devoir.component';
-import { GenerationDeDonneesDeTestsComponent } from '../assignments/generation-de-donnees-de-tests/generation-de-donnees-de-tests.component';
 import { BodyComponent } from '../assignments/body/body.component';
 import { HeaderComponent } from '../assignments/header/header.component';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -65,7 +64,6 @@ import { DynamicFontSizeDirective } from '../shared/directives/dynamic-font-size
     ListeDesDevoirsComponent,
     EditAssignmentComponent,
     SuppressionDevoirComponent,
-    GenerationDeDonneesDeTestsComponent,
     BodyComponent,
     HeaderComponent,
     DialogViewComponent,

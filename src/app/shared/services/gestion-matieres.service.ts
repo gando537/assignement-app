@@ -9,7 +9,7 @@ import { bdInitialMatieres } from '../datas/data-matieres';
 })
 export class GestionMatieresService {
 
-  url = 'http://localhost:8010/api/db-angular-project/matieres';
+  url = 'https://api-assignment-sigma.vercel.app/api/db-angular-project/matieres';
 
   private HttpOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')

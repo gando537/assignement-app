@@ -19,7 +19,7 @@ export class AuthService {
   usernameBrider = '';
   data: any;
 
-  url = 'http://localhost:8010/api/db-angular-project/users';
+  url = 'https://api-assignment-sigma.vercel.app/api/db-angular-project/users';
 
   private HttpOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')

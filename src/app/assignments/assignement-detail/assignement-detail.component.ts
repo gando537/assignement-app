@@ -22,10 +22,10 @@ export class AssignementDetailComponent implements OnInit {
     this.getAssignment();
   }
 
-  onDelete() {
-    // this.supprimeAssignment.emit(this.assignmentTransmis);
-    if (this.assignmentTransmis) {
-      this.assignmentsService.deleteAssignment(this.assignmentTransmis)
+  onDelete(assignment: Assignment) {
+    console.log('assignmentTransmis: ', assignment);
+    if (assignment) {
+      this.assignmentsService.deleteAssignment(assignment)
         .subscribe(message => {
           console.log(message);
           this.router.navigate(['/dashboard']);
