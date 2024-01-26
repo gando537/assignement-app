@@ -193,7 +193,7 @@ export class AssignmentsService {
   constructor(private http: HttpClient) { }
 
   getAssignment(id: number): Observable<Assignment | undefined> {
-    return this.http.get<Assignment>(this.url + '/' + id)
+    return this.http.get<Assignment>(this.url + id)
       .pipe(tap(_ => {
         console.log(`tap: assignment avec id=${id} requête envoyée sur le serveur MongoDB Cloud Atlas`);
       }),
@@ -201,7 +201,7 @@ export class AssignmentsService {
   }
 
   getUniqueAssignments(): Observable<any> {
-    return this.http.get<any>(this.url + '/uniques');
+    return this.http.get<any>(this.url + 'uniques');
   }
 
 
@@ -225,13 +225,13 @@ export class AssignmentsService {
 
   deleteAssignment(assignment: Assignment): Observable<String> {
 
-    let deleteUrl = this.url + '/' + assignment.id;
+    let deleteUrl = this.url + assignment.id;
     return this.http.delete<String>(deleteUrl);
   }
 
   deleteAssignmentUnique(name: String): Observable<String> {
 
-      let deleteUrl = this.url + '/uniques/' + name;
+      let deleteUrl = this.url + 'uniques/' + name;
       return this.http.delete<String>(deleteUrl);
     }
 
