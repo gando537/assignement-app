@@ -256,7 +256,9 @@ export class AssignmentsService {
         {
           nom_matiere: a.nom.substring(3),
           image_matiere: "",
-          image_prof: ""
+          image_prof: "",
+          nom_prof: "",
+          prenom_prof: ""
         }
       ];
       newAssignment.matiere = newMatiere[0];

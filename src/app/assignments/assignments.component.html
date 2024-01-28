@@ -31,7 +31,15 @@
                     </mat-card-header>
                     <mat-card-content class="content">
                         <div class="outlook" *ngIf="assignment.matiere.image_matiere" >
-                            <img src="../{{assignment.matiere.image_matiere}}"/>
+                            <!-- <img src="../{{assignment.matiere.image_matiere}}"/> -->
+                            <div class="head-user-avatar-container">
+                                <div class="head-user-avatar">
+                                    <img src="../assets/user.jpg" alt="user" class="user-avatar">
+                                    <div class="nomProf">
+                                        {{assignment.matiere.nom_prof}}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex-row">
                             <div class="temp">

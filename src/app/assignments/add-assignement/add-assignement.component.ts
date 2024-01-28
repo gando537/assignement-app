@@ -47,7 +47,7 @@ export class AddAssignementComponent {
     newAssignment.nom = this.nomDevoir;
     newAssignment.dateDeRendu = this.dateRendu;
     newAssignment.rendu = false;
-    newAssignment.matiere = { nom_matiere: '', image_matiere: '', image_prof: '' };
+    newAssignment.matiere = { nom_matiere: '', image_matiere: '', image_prof: '', nom_prof: '', prenom_prof: ''};
 
     newAssignment.matiere.nom_matiere = this.matiere;
 
