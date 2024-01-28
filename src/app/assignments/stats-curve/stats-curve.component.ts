@@ -13,7 +13,18 @@ export class StatsCurveComponent implements OnInit {
   data: any[] = [];
   assignments: Assignment[] | undefined;
 
-  constructor(private assignmentsService: AssignmentsService) { }
+  constructor(private assignmentsService: AssignmentsService) {
+    this.assignmentsService.getAssignments().subscribe((assignments) => {
+      this.assignments = assignments.docs;
+      this.data = this.assignmentsService.getAssignmentsByMonth(this.assignments);
+      this.chart.addSeries({
+        name: 'Nombre de devoir',
+        type: 'line',
+        color: '#044342',
+        data: this.data
+      }, true, true);
+    });
+  }
 
   chart = new Chart({
     chart: {
@@ -53,15 +64,5 @@ export class StatsCurveComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.assignmentsService.getAssignments().subscribe((assignments) => {
-      this.assignments = assignments.docs;
-      this.data = this.assignmentsService.getAssignmentsByMonth(this.assignments);
-      this.chart.addSeries({
-        name: 'Nombre de devoir',
-        type: 'line',
-        color: '#044342',
-        data: this.data
-      }, true, true);
-    });
   }
 }
