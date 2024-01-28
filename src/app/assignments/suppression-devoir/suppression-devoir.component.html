@@ -19,6 +19,21 @@
                 <mat-card-content class="content">
                     <div class="outlook" *ngIf="assignment.image_matiere">
                         <img src="../{{assignment.image_matiere}}" />
+                        <div class="head-user-avatar-container">
+                            <div class="head-user-avatar">
+                                <div *ngIf="assignment.image_prof; else pasImage">
+                                    <img src="../{{assignment.image_prof}}" alt="user" class="user-avatar">
+                                </div>
+                                <div class="nomProf">
+                                    {{assignment.prenom_prof + ' ' + assignment.nom_prof}}
+                                </div>
+                                <ng-template #pasImage>
+                                    <div>
+                                        <img src="../../assets/user.jpg" alt="user" class="user-avatar">
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
                     </div>
                     <div class="flex-row">
                         <div class="temp">

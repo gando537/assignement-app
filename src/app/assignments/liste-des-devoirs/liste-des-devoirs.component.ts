@@ -7,6 +7,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { GestionElevesService } from '../../shared/services/gestion-eleves.service';
 import { GestionMatieresService } from '../../shared/services/gestion-matieres.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -44,13 +45,18 @@ export class ListeDesDevoirsComponent implements OnInit, AfterViewInit {
   constructor(public assignmentsService: AssignmentsService,
               public authService: AuthService,
               public gestionElevesService: GestionElevesService,
-              public gestionMatieresService: GestionMatieresService) {
+              public gestionMatieresService: GestionMatieresService,
+              private spinner: NgxSpinnerService) {
   }
 
   @ViewChildren('cards') cards!: QueryList<ElementRef>;
 
   ngAfterViewInit() {
     this.setCardHeights();
+  }
+
+  openSpinner() {
+    this.spinner.show();
   }
 
   setCardHeights() {
@@ -65,14 +71,15 @@ export class ListeDesDevoirsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.openSpinner();
     this.assignmentsService.currentAssignments.subscribe(assignments => {
       this.assignments = assignments;
+      this.spinner.hide();
       console.log("Assignments récupérés avec succès !");
       console.log(this.assignments);
     });
     // console.log(this.assignments);
     this.url = this.assignmentsService.url;
-
     this.loadInitialData();
   }
 
@@ -93,35 +100,17 @@ export class ListeDesDevoirsComponent implements OnInit, AfterViewInit {
       });
   }
 
-  peuplerBD() {
-    this.assignmentsService.peuplerBDAvecForkJoin().subscribe(() => {
-      console.log("La BD a été peuplée, tous les appels à forkJoin sont terminés");
-      window.location.reload();
-    });
-  }
-
-  peuplerEleves() {
-    this.gestionElevesService.peuplerCollectionEleve().subscribe(() => {
-      console.log("La collection Eleves a été peuplée");
-      window.location.reload();
-    });
-  }
-
-  peuplerMatieres() {
-    this.gestionMatieresService.peuplerCollectionMatiere().subscribe(() => {
-      console.log("La collection Matieres a été peuplée");
-      window.location.reload();
-    });
-  }
-
   getAssignments() {
+    this.openSpinner();
     this.assignmentsService.getAssignments()
       .subscribe(assignments => {
         this.assignments = assignments;
+        this.spinner.hide();
       });
   }
 
   handlePageEvent($event: PageEvent) {
+    this.openSpinner();
     this.page = $event.pageIndex + 1;
     this.limit = $event.pageSize;
     this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
@@ -135,6 +124,7 @@ export class ListeDesDevoirsComponent implements OnInit, AfterViewInit {
         this.hasNextPage = data.hasNextPage;
         this.prevPage = data.prevPage;
         this.nextPage = data.nextPage;
+        this.spinner.hide();
         console.log("Assignments récupérés avec succès !");
       });
   }

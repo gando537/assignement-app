@@ -1,21 +1,12 @@
-<!-- <div class="ajouterBtn">
-    <button mat-flat-button color="accent" routerLink="/ajout-image">Ajouter Image</button>
-</div> -->
-
-<!-- <div class="ajouterBtn">
-    <button mat-flat-button color="accent" [disabled]="!islogged()" routerLink="/ajout-devoir">Ajouter
-        Assignment</button>
-</div> -->
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
 <main class="container">
-    <!-- <div>
-        <button mat-flat-button color="primary" (click)="peuplerBD()" type="submit">PeuplerBD</button>
-    </div> -->
-    <!-- <div>
-        <button mat-flat-button color="primary" (click)="peuplerEleves()" type="submit">PeuplerCollectionEleve</button>
-    </div> -->
-    <!-- <div>
-        <button mat-flat-button color="primary" (click)="peuplerMatieres()" type="submit">PeuplerMatiere</button>
-    </div> -->
     <div @cardAnimation>
         <mat-card class="content-list custom-card" #cards *ngFor="let assignment of assignments">
             <nav>
@@ -37,6 +28,21 @@
                     <mat-card-content class="content">
                         <div class="outlook" *ngIf="assignment.matiere.image_matiere">
                             <img src="../{{assignment.matiere.image_matiere}}" />
+                            <div class="head-user-avatar-container">
+                                <div class="head-user-avatar">
+                                    <div *ngIf="assignment.matiere.image_prof; else pasImage">
+                                        <img src="../{{assignment.matiere.image_prof}}" alt="user" class="user-avatar">
+                                    </div>
+                                    <div class="nomProf">
+                                        {{assignment.matiere.prenom_prof + ' ' + assignment.matiere.nom_prof}}
+                                    </div>
+                                    <ng-template #pasImage>
+                                        <div>
+                                            <img src="../../assets/user.jpg" alt="user" class="user-avatar">
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex-row">
                             <div class="temp">

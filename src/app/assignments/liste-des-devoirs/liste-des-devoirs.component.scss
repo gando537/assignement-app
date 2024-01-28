@@ -97,6 +97,38 @@ $color_2: 'red';
 				border-radius: 50%;
 			}
 
+			.head-user-avatar-container {
+				margin-left: 50px;
+				.head-user-avatar {
+					position: relative;
+					display: inline-block;
+					vertical-align: middle;
+					border-radius: 10px;
+					overflow: hidden;
+					cursor: pointer;
+					align-items: center;
+
+					.user-avatar {
+						align-self: auto;
+						margin-bottom: 4px;
+						width: 50px;
+						border-radius: 10px;
+						box-shadow: 0 0 15px rgb(35 35 35 / 15%);
+						cursor: pointer;
+					}
+
+					.nomProf {
+						align-self: auto;
+						background: #fff;
+						color: rgba(26, 104, 206, 0.6);
+						box-shadow: 0 1rem 3rem rgb(0 0 0 / 13%);
+						border-radius: 0.25rem;
+						padding-left: 0.35rem;
+						z-index: 1;
+					}
+				}
+			}
+
 			.flex-row {
                 display: flex;
                 justify-content: space-between;

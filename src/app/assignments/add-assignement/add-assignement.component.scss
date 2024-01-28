@@ -1,21 +1,70 @@
 .form {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #673AB7; // Fond orange doux
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 
-    .input-nomDevoir {
-        width: 246px;
-    }
-}
+  h4 {
+      color: #e65100; // Orange foncé pour les titres
+      margin: 20px 0;
+      font-weight: 500;
+  }
 
-:host {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .mat-form-field {
+      width: 100%; // Largeur uniforme pour tous les champs
+      margin: 10px 0;
+
+      input.mat-input-element, .mat-select {
+          width: calc(100% - 24px); // Réduire la largeur pour tenir compte du padding
+          padding: 10px 12px;
+          border-radius: 5px;
+          border: 2px solid #ffcc80; // Bordure orange clair
+          background-color: #673AB7; // Fond légèrement coloré pour les champs
+
+          &:focus {
+              border-color: #ffab40; // Orange vif au focus
+              background-color: #fff; // Fond blanc au focus
+              box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 8px rgba(255, 171, 64, 0.6);
+          }
+      }
+
+      mat-error {
+          color: #f44336; // Rouge pour les erreurs
+      }
+  }
+
+  .example-spacer {
+      width: 100%;
+      height: 20px;
   }
 
   button {
-    margin-top: 20px;
-    margin-left: 90px;
+      margin-top: 20px;
+      padding: 12px 18px;
+      font-size: 1.1em;
+      font-weight: 500;
+      background-color: #ff9800; // Orange vif pour le bouton
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+
+      &:hover {
+          background-color: #fb8c00; // Orange foncé au survol
+          box-shadow: 0 6px 9px rgba(0, 0, 0, 0.3);
+      }
+
+      &:disabled {
+          background-color: #ffd180; // Orange plus clair pour le désactivé
+          color: #ffffff;
+          cursor: not-allowed;
+      }
   }
+}

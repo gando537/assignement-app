@@ -28,20 +28,21 @@
 				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Optionnel: Ajoute une légère ombre pour un effet de profondeur
 			}
 
-			@media (max-width: 500px) { // Requête média pour les téléphones mobiles
-                flex-direction: column; // Change la direction du flex pour une disposition en colonne
-                align-items: flex-start; // Aligner les éléments en haut
+			@media (max-width: 500px) {
+				// Requête média pour les téléphones mobiles
+				flex-direction: column; // Change la direction du flex pour une disposition en colonne
+				align-items: flex-start; // Aligner les éléments en haut
 
-                .outlook {
-                    align-self: center; // Centrer l'image
-                    margin-bottom: 10px; // Ajouter un espace en dessous de l'image
-                }
+				.outlook {
+					align-self: center; // Centrer l'image
+					margin-bottom: 10px; // Ajouter un espace en dessous de l'image
+				}
 
-                .outlook img {
-                    width: 80px; // Taille réduite de l'image pour les petits écrans
-                    height: 80px;
-                }
-            }
+				.outlook img {
+					width: 80px; // Taille réduite de l'image pour les petits écrans
+					height: 80px;
+				}
+			}
 
 			.header-content {
 
@@ -107,6 +108,7 @@
 				}
 
 				@media (max-width: 500px) {
+
 					.mat-card-header,
 					.mat-card-content {
 						padding: 8px;
@@ -116,6 +118,7 @@
 						.assignment-name {
 							font-size: 1.3em; // Taille encore plus petite pour les très petits écrans
 						}
+
 						.due-date {
 							font-size: 0.9em;
 						}
@@ -190,18 +193,58 @@
 			margin-bottom: 30px;
 		}
 
-		.libelle-remarque {
-			font-size: 1.2em; // Taille de police plus grande pour le libellé
-			font-weight: 500; // Poids de police moyen pour une importance modérée
-			color: #673AB7; // Couleur de police pourpre pour la distinction
-			background-color: #EDE7F6; // Couleur de fond légère pour faire ressortir le libellé
-			border-left: 4px solid #673AB7; // Bordure sur le côté pour une distinction supplémentaire
-			padding: 8px 16px; // Padding pour l'espacement interne
-			margin-top: 20px; // Marge en haut pour séparer du contenu au-dessus
-			margin-bottom: 10px; // Marge en bas pour séparer du contenu en dessous
-			display: inline-block; // Pour que le padding et la bordure s'appliquent correctement
-			border-radius: 4px; // Coins arrondis
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Ombre subtile pour le relief
+		.rm-prof {
+			margin-top: 20px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+
+			.libelle-remarque {
+				font-size: 1.2em; // Taille de police plus grande pour le libellé
+				font-weight: 500; // Poids de police moyen pour une importance modérée
+				color: #673AB7; // Couleur de police pourpre pour la distinction
+				background-color: #EDE7F6; // Couleur de fond légère pour faire ressortir le libellé
+				border-left: 4px solid #673AB7; // Bordure sur le côté pour une distinction supplémentaire
+				padding: 8px 8px; // Padding pour l'espacement interne
+				margin-top: 20px; // Marge en haut pour séparer du contenu au-dessus
+				margin-bottom: 10px; // Marge en bas pour séparer du contenu en dessous
+				display: flex; // Pour que le padding et la bordure s'appliquent correctement
+				border-radius: 4px; // Coins arrondis
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Ombre subtile pour le relief
+			}
+
+			.head-user-avatar-container {
+				.head-user-avatar {
+					position: relative;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					vertical-align: middle;
+					border-radius: 10px;
+					overflow: hidden;
+					cursor: pointer;
+					align-items: center;
+
+					.user-avatar {
+						align-self: center;
+						margin-bottom: 4px;
+						width: 50px;
+						border-radius: 10px;
+						box-shadow: 0 0 15px rgb(35 35 35 / 15%);
+						cursor: pointer;
+					}
+
+					.nomProf {
+						align-self: auto;
+						background: #fff;
+						color: rgba(26, 104, 206, 0.6);
+						box-shadow: 0 1rem 3rem rgb(0 0 0 / 13%);
+						border-radius: 0.25rem;
+						padding-left: 0.35rem;
+						z-index: 1;
+					}
+				}
+			}
 		}
 
 		.remarques {
@@ -218,6 +261,7 @@
 				font-style: italic;
 				color: #999; // Couleur grise pour "Aucune remarque"
 			}
+
 		}
 
 		mat-card-actions {

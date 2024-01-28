@@ -30,9 +30,27 @@
             </nav>
         </mat-card-header>
         <mat-card-content>
-            <div class="libelle-remarque">
-                <span>Remarques</span>
+            <div class="rm-prof">
+                <div class="libelle-remarque">
+                    <span>Remarques</span>
+                </div>
+                <div class="head-user-avatar-container">
+                    <div class="head-user-avatar">
+                        <div *ngIf="assignmentTransmis.matiere.image_prof; else pasImage">
+                            <img src="../{{assignmentTransmis.matiere.image_prof}}" alt="user" class="user-avatar">
+                        </div>
+                        <div class="nomProf">
+                            {{assignmentTransmis.matiere.prenom_prof + ' ' + assignmentTransmis.matiere.nom_prof}}
+                        </div>
+                        <ng-template #pasImage>
+                            <div>
+                                <img src="../../assets/user.jpg" alt="user" class="user-avatar">
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
             </div>
+
             <div class="remarques">
                 <div class="remarques-content" *ngIf="assignmentTransmis.remarques; else noRemark">
                     {{ assignmentTransmis.remarques }}

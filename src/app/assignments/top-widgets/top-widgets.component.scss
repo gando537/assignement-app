@@ -1,67 +1,65 @@
-
 .widget-container {
-    display: flex;
-    align-items: space-between;
-    .widget {
-      width: 325px;
-      height: 175px;
+  display: flex;
+  flex-wrap: wrap; // Permettre aux widgets de se mettre en ligne suivant la largeur de l'écran
+  justify-content: center; // Centrer les widgets dans le conteneur
+  gap: 10px; // Espacement entre les widgets
+
+
+  .widget {
+      // flex-grow: 1; // Permettre aux widgets de grandir pour remplir l'espace
+      // flex-basis: calc(25% - 20px); // De base, prendre la moitié de l'espace disponible, moins les marges
+      // max-width: 200px; // Largeur maximale
+      // min-width: 120px; // Largeur minimale
+      height: auto; // Hauteur automatique pour s'adapter au contenu
       background-color: #fff;
       color: #fff;
       border-radius: 5px;
       margin: 10px;
       box-shadow: 5px 5px 5px #939393;
-      display: flex;
-      align-items: center;
       padding: 20px;
-      &.green {
-        background-color: rgb(4, 67, 66);
-      }
-      &.yellow {
-        background-color: rgb(237, 158, 32);
-      }
-      &.red {
-        background-color: rgb(126, 5, 5);
-      }
-      &.blue {
-        background-color: rgb(105, 32, 251);
-      }
-      @media only screen and (max-width: 1600px) {
-        width: 300px;
-      }
-      @media only screen and (max-width: 1500px) {
-        width: 275px;
-      }
-      @media only screen and (max-width: 1400px) {
-        width: 250px;
-      }
-      @media only screen and (max-width: 1200px) {
-        width: 225px;
-      }
-  
-      .icon {
-        width: 100px;
-        font-size: 60px;
-        text-align: center;
-        @media only screen and (max-width: 1200px) {
-          font-size: 45px;
-        }
-      }
+      align-items: center;
+
+      // Couleurs spécifiques
+      &.green { background-color: rgb(4, 67, 66); }
+      &.yellow { background-color: rgb(237, 158, 32); }
+      &.red { background-color: rgb(126, 5, 5); }
+      &.blue { background-color: rgb(105, 32, 251); }
+
+      // Styles pour l'icône et le contenu
+      .icon { font-size: 4vw; }
       .value {
-        text-align: center;
-        width: 175px;
-        .top {
-          font-size: 30px;
-          @media only screen and (max-width: 1200px) {
-            font-size: 26px;
-          }
-        }
-        .bottom {
-          font-size: 20px;
-          margin-top: 10px;
-          @media only screen and (max-width: 1200px) {
-            font-size: 16px;
-          }
-        }
+          text-align: center;
+          .top { font-size: 3vw; margin-bottom: 10px; }
+          .bottom { font-size: 2vw; }
       }
-    }
   }
+
+  .widget {
+    flex: 1 1 calc(25% - 20px); // Ajustement pour quatre widgets par ligne
+    max-width: 200px; // Limite de largeur maximale
+}
+
+  // Styles pour les écrans plus petits
+  @media only screen and (max-width: 768px) {
+      .widget {
+          flex-basis: 1 1 calc(50% - 20px); // Deux widgets par ligne
+          .icon { font-size: 5vw; }
+          .value {
+              .top { font-size: 3.5vw; margin-bottom: 10px;}
+              .bottom { font-size: 2.5vw; }
+          }
+      }
+  }
+
+  // Styles pour les très petits écrans (téléphones)
+  @media only screen and (max-width: 600px) {
+      .widget {
+          flex-basis: 1 1 calc(100% - 20px); // Deux widgets par ligne
+          .icon { font-size: 6vw; }
+          .value {
+              .top { font-size: 4vw; margin-bottom: 10px;}
+              .bottom { font-size: 3vw; }
+          }
+      }
+  }
+}

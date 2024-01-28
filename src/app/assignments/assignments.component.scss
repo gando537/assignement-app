@@ -24,25 +24,6 @@ $color_2: 'red';
 	height: auto;
 	/* Hauteur automatique pour s'adapter au contenu */
 
-	.content,
-	.outlook {
-		.head-user-avatar-container {
-			margin-left: 20px;
-
-			.head-user-avatar {
-				position: relative;
-
-				.user-avatar {
-					margin-bottom: -4px;
-					width: 50px;
-					border-radius: 10px;
-					box-shadow: 0 0 15px rgb(35 35 35 / 15%);
-					cursor: pointer;
-				}
-			}
-		}
-	}
-
 	@media (min-width: 650px) {
 		width: 30%;
 		/* Réduire la largeur à 30% sur les écrans de 600 pixels et plus */
