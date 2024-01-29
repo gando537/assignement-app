@@ -15,3 +15,5 @@ Pour exécuter localement : 'npm install angular@latest --legacy-peer-deps' pour
                            'npm start' (pour exécuter)
 
 Les indentifients de l'admin pour se connecter dans l'application : Email : ganza@gmail.com ; mot de passe : ganza
+
+Lien vidéo démo : https://youtu.be/gaUoiiM-bpo
