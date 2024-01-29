@@ -11,6 +11,6 @@ lien de l'application : https://assignement-app.vercel.app/dashboard (héberger 
 
 Lien de l'api : https://github.com/gando537/api-assignments
 
-Pour exécuter localement : npm install angular@latest --legacy-peer-deps pour télécharger le node_modules
-                           npm start (pour exécuter)
+Pour exécuter localement : 'npm install angular@latest --legacy-peer-deps' pour télécharger le node_modules, puis
+                           'npm start' (pour exécuter)
 
