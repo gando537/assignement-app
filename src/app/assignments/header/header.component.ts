@@ -51,16 +51,13 @@ export class HeaderComponent implements OnInit {
 
   onSearch(): void {
     console.log('searchTerm : ', this.searchTerm);
+    this.router.navigate(['/liste-devoirs']);
     this.assignmentsService.getAssignmentsPagine(1, 30, this.searchTerm)
       .subscribe(data => {
         this.filteredAssignments = data.docs;
         this.assignmentsService.changeAssignments(this.filteredAssignments);
         console.log('filteredAssignments : ', this.filteredAssignments);
-      },
-        error => {
-          console.log('😢 Oh no!', error);
-        }
-      );
+      });
   }
 
   getHeadClass(): string {
