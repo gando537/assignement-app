@@ -98,21 +98,20 @@ export class DialogOverviewDialog {
     const user = new User();
     user.email = this.data.email!;
     user.password = this.data.password!;
-    this.authService.login(user).subscribe(data => {
-      if(data.auth) {
-        this.authService.setLogIn(data);
-        this.invalidLogin = false;
-        this.dialogRef.close();
+    this.authService.login(user).subscribe({
+      next: (data) => {
+        if (data.auth) {
+          this.authService.setLogIn(data);
+          this.invalidLogin = false; // Connexion réussie
+          this.dialogRef.close(); // Ferme le dialogue sur succès
+        } else {
+          this.invalidLogin = true; // Les identifiants sont incorrects mais la requête a réussi
+        }
+      },
+      error: (error) => {
+        this.invalidLogin = true; // Gestion des erreurs de la requête, par exemple, problème de réseau ou erreur serveur
       }
     });
-    setTimeout(() => {
-      this.ngZone.run(() => {
-        if (!this.authService.isLoggedIn) {
-          this.invalidLogin = true;
-        }
-        console.log("Timeout terminé !");
-      });
-    }, 300);
   }
 
   onOpenRegister(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, QueryList, ViewChildren, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Assignment } from '../models/assignments.model';
 import { AssignmentsService } from '../../shared/services/assignments.service';
 import { AuthService } from '../../shared/services/auth.service';
@@ -43,10 +43,10 @@ export class ListeDesDevoirsComponent implements OnInit, AfterViewInit {
   showFirstLastButtons: BooleanInput = true;
 
   constructor(public assignmentsService: AssignmentsService,
-              public authService: AuthService,
-              public gestionElevesService: GestionElevesService,
-              public gestionMatieresService: GestionMatieresService,
-              private spinner: NgxSpinnerService) {
+    public authService: AuthService,
+    public gestionElevesService: GestionElevesService,
+    public gestionMatieresService: GestionMatieresService,
+    private spinner: NgxSpinnerService) {
   }
 
   @ViewChildren('cards') cards!: QueryList<ElementRef>;
@@ -74,11 +74,12 @@ export class ListeDesDevoirsComponent implements OnInit, AfterViewInit {
     this.openSpinner();
     this.assignmentsService.currentAssignments.subscribe(assignments => {
       this.assignments = assignments;
-      this.spinner.hide();
       console.log("Assignments récupérés avec succès !");
       console.log(this.assignments);
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 2000);
     });
-    // console.log(this.assignments);
     this.url = this.assignmentsService.url;
     this.loadInitialData();
   }
