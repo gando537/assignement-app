@@ -7,20 +7,13 @@
 
 ### Prénom[^2] : Evan
 
-## A faire[^3]
-- [x] Suivre le cours jusqu'à la page 180
-- [x] Intégrer toolbar et navbar du rendu n°1
-- [x] Identification par **login/password**
-  - ajouter un tableau de login/password/role (avec rôle qui est soit **user** soit **admin**) dans le service d'authentification
-  - modifier le code pour avoir `isLogged()` **ET** `isAdmin()` au lieu de juste `isAdmin()`
-- [x] Au lieu du slider `LogIn`, ajouter un bouton connecter (avec une *mat-icon* adaptée) qui amène à un composant avec un formulaire de connexion
-- [x] Gestion des droits :
-  - L'admin peut éditer et effacer les assignment
-  - Le user peut voir le détail des assignment
-  - Si on n'est pas logué on ne peut ni voir le détail, ni éditer
+lien de l'application : https://assignement-app.vercel.app/dashboard (héberger sur vercel tout comme l'api)
 
+Lien de l'api : https://github.com/gando537/api-assignments
 
-[^1]: à remplir
-[^2]: à remplir
-[^3]: vous pouvez cocher les tâches qui ont été faites en utilisant la syntaxe `[x]` dans le markdown
+Pour exécuter localement : 'npm install angular@latest --legacy-peer-deps' pour télécharger le node_modules, puis
+                           'npm start' (pour exécuter)
 
+Les indentifients de l'admin pour se connecter dans l'application : Email : ganza@gmail.com ; mot de passe : ganza
+
+Lien vidéo démo : https://youtu.be/JOWbKECN6hQ
